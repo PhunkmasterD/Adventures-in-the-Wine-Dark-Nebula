@@ -1,0 +1,18 @@
+[gd_resource type="StyleBoxTexture" load_steps=3 format=3 uid="uid://daeneodphwlvv"]
+
+[ext_resource type="Texture2D" uid="uid://h7i8uiwlysq2" path="res://assets/images/kenney_1-bit-pack/monochrome_packed.png" id="1_oylde"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7j4i"]
+atlas = ExtResource("1_oylde")
+region = Rect2(768, 336, 16, 16)
+
+[resource]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = SubResource("AtlasTexture_q7j4i")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0

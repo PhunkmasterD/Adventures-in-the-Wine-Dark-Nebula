@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TileDefinition" load_steps=4 format=3 uid="uid://c6yxrgbtcfapp"]
+
+[ext_resource type="Script" path="res://src/Map/Map_Resource_Definitions/tile_definition.gd" id="1_sckb1"]
+[ext_resource type="Texture2D" uid="uid://h7i8uiwlysq2" path="res://assets/images/kenney_1-bit-pack/monochrome_packed.png" id="2_u0lrl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3f7xe"]
+atlas = ExtResource("2_u0lrl")
+region = Rect2(48, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_sckb1")
+tile_name = "Forest"
+overworld_tile = true
+persistent = true
+texture = SubResource("AtlasTexture_3f7xe")
+color_lit = Color(0.428695, 0.511352, 0.257017, 1)
+color_dark = Color(0.15597, 0.212125, 0.0916159, 1)
+is_walkable = true
+is_transparent = true

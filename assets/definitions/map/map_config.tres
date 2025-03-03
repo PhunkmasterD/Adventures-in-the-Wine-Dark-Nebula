@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MapConfigDefinition" load_steps=2 format=3 uid="uid://bp456fl3k3ndi"]
+
+[ext_resource type="Script" path="res://src/Map/Map_Resource_Definitions/map_config_definition.gd" id="1_ha46f"]
+
+[resource]
+script = ExtResource("1_ha46f")
+world_map_width = 100
+world_map_height = 50
+world_map_depth = 5
+num_biomes = 25
+dungeon_map_width = 80
+dungeon_map_height = 45
+dungeon_max_rooms = 30
+dungeon_room_max_size = 10
+dungeon_room_min_size = 6
