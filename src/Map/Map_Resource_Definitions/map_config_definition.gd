@@ -1,12 +1,14 @@
 class_name MapConfigDefinition
 extends Resource
 
+# Overworld generation settings
 @export_category("Overworld Generation")
 @export var world_map_width: int = 15
 @export var world_map_height: int = 15
 @export var world_map_depth: int = 5
 @export var num_biomes: int = 10
 
+# Dungeon generation settings
 @export_category("Dungeon Generation")
 @export var dungeon_map_width: int = 80
 @export var dungeon_map_height: int = 45

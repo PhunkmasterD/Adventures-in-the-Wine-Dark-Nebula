@@ -1,18 +1,19 @@
 extends Node
 
-#Overworld Generation
+# Variables for overworld generation settings
 var world_map_width: int
 var world_map_height: int
 var world_map_depth: int
 var num_biomes: int
 
-#Dungeon Generation
+# Variables for dungeon generation settings
 var dungeon_map_width: int
 var dungeon_map_height: int
 var dungeon_max_rooms: int
 var dungeon_room_max_size: int
 var dungeon_room_min_size: int
 
+# Ready function to load map configuration
 func _ready() -> void:
     var config = load("res://assets/definitions/map/map_config.tres") as MapConfigDefinition
     if config:

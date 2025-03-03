@@ -1,13 +1,15 @@
 class_name EquippableComponent
 extends Node
 
+# Enum outlining the equipment types
 enum EquipmentType { WEAPON, ARMOR }
 
+# Setting up equippable variables
 var equipment_type: EquipmentType
 var power_bonus: int
 var defense_bonus: int
 
-
+# Initialize the equippable component
 func _init(definition: EquippableComponentDefinition) -> void:
 	equipment_type = definition.equipment_type
 	power_bonus = definition.power_bonus

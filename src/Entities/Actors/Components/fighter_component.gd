@@ -1,8 +1,10 @@
 class_name FighterComponent
 extends Component
 
+# Signal emitted when HP changes
 signal hp_changed(hp, max_hp)
 
+# Variables for max HP, current HP, base defense, and base power
 var max_hp: int
 var hp: int:
 	set(value):
@@ -20,6 +22,8 @@ var hp: int:
 				entity.modulate = entity.modulate.lerp(Color(1, 0, 0), 0.3)
 var base_defense: int
 var base_power: int
+
+# Computed properties for defense and power
 var defense: int: 
 	get:
 		return base_defense + get_defense_bonus()
@@ -27,11 +31,11 @@ var power: int:
 	get:
 		return base_power + get_power_bonus()
 
-
+# Variables for death texture and color
 var death_texture: Texture
 var death_color: Color
 
-
+# Initialize the component with the definition data
 func _init(definition: FighterComponentDefinition) -> void:
 	max_hp = definition.max_hp
 	hp = definition.max_hp
@@ -40,7 +44,7 @@ func _init(definition: FighterComponentDefinition) -> void:
 	death_texture = definition.death_texture
 	death_color = definition.death_color
 
-
+# Heal the entity by a specified amount
 func heal(amount: int) -> int:
 	if hp == max_hp:
 		return 0
@@ -54,11 +58,11 @@ func heal(amount: int) -> int:
 	hp = new_hp_value
 	return amount_recovered
 
-
+# Inflict damage to the entity
 func take_damage(amount: int) -> void:
 	hp -= amount
 
-
+# Handle the entity's death
 func die(trigger_side_effects := true) -> void:
 	var death_message: String
 	var death_message_color: Color
@@ -85,19 +89,19 @@ func die(trigger_side_effects := true) -> void:
 		entity.type = Entity.EntityType.CORPSE
 		get_map_data().unregister_blocking_entity(entity)
 
-
+# Get the defense bonus from equipped items
 func get_defense_bonus() -> int:
 	if entity.equipment_component:
 		return entity.equipment_component.get_defense_bonus()
 	return 0
 
-
+# Get the power bonus from equipped items
 func get_power_bonus() -> int:
 	if entity.equipment_component:
 		return entity.equipment_component.get_power_bonus()
 	return 0
 
-
+# Get the save data for the fighter component
 func get_save_data() -> Dictionary:
 	return {
 		"max_hp": max_hp,
@@ -106,7 +110,7 @@ func get_save_data() -> Dictionary:
 		"defense": base_defense
 	}
 
-
+# Restore the fighter component state from save data
 func restore(save_data: Dictionary) -> void:
 	max_hp = save_data["max_hp"]
 	hp = save_data["hp"]
