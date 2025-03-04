@@ -22,6 +22,8 @@ var hp: int:
 				entity.modulate = entity.modulate.lerp(Color(1, 0, 0), 0.3)
 var base_defense: int
 var base_power: int
+var agi: int
+var action_cooldown: int = 0
 
 # Computed properties for defense and power
 var defense: int: 
@@ -43,6 +45,7 @@ func _init(definition: FighterComponentDefinition) -> void:
 	base_power = definition.power
 	death_texture = definition.death_texture
 	death_color = definition.death_color
+	action_cooldown = 0
 
 # Heal the entity by a specified amount
 func heal(amount: int) -> int:

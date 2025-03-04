@@ -3,12 +3,12 @@ extends RefCounted
 
 # Declare variables for the entity and cooldown
 var entity: Entity
-var cooldown: float
+var timer: float
 
 # Initialize the Action with an entity and set the initial cooldown
 func _init(entity: Entity) -> void:
 	self.entity = entity
-	self.cooldown = 0
+	self.timer = 0
 
 # Perform the action, returns false by default
 func perform() -> bool:

@@ -8,7 +8,6 @@ const scroll_step = 16
 @onready var message_panel: PanelContainer = get_node(messages_panel_path)
 @onready var message_log: MessageLog = get_node(message_log_path)
 
-
 func enter() -> void:
 	message_panel.self_modulate = Color.RED
 
@@ -30,7 +29,7 @@ func get_action(player: Entity) -> Action:
 		message_log.scroll_vertical = message_log.get_v_scroll_bar().max_value
 	
 	if Input.is_action_just_pressed("view_history") or Input.is_action_just_pressed("ui_back"):
-		get_parent().transition_to(InputHandler.InputHandlers.MAIN_GAME)
+		get_parent().transition_to_previous()
 	
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()

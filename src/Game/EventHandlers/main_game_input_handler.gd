@@ -23,12 +23,12 @@ func get_action(player: Entity) -> Action:
 		if Input.is_action_just_pressed(direction):
 			var offset: Vector2i = directions[direction]
 			action = BumpAction.new(player, offset.x, offset.y)
-			action.cooldown = 0.2
+			action.timer = 0.2
 		elif Input.is_action_pressed(direction):
 			var offset: Vector2i = directions[direction]
 			action = BumpAction.new(player, offset.x, offset.y)
-			action.cooldown = 0.05
-	
+			action.timer = 0.05
+
 	if Input.is_action_just_pressed("wait"):
 		action = WaitAction.new(player)
 	

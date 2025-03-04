@@ -9,7 +9,7 @@ const level_up_menu_scene: PackedScene = preload("res://src/GUI/LevelUpMenu/leve
 @onready var input_handler: InputHandler = $InputHandler
 @onready var map: Map = $Map
 @onready var camera: Camera2D = $Camera2D
-@onready var action_cooldown: float
+@onready var action_timer: float
 
 # Function to start a new game
 func new_game() -> void:
@@ -78,30 +78,33 @@ func load_game() -> bool:
 	camera.make_current.call_deferred()
 	return true
 
-# Function to handle physics processing
+# Function to handle the main game loop
 func _physics_process(delta: float) -> void:
-	# Get action from input handler
-	var action: Action = await input_handler.get_action(player)
-	if action:
-		# Perform action if cooldown is zero
-		if action.cooldown == 0:
-			if action.perform():
-				_handle_enemy_turns()
-				map.update_fov(player.grid_position)
-		# Handle action cooldown
-		elif action.cooldown > 0 and action_cooldown <= 0:
-			action_cooldown = action.cooldown
-			if action.perform():
-				_handle_enemy_turns()
-				map.update_fov(player.grid_position)
-	action_cooldown -= delta
+	# Check if the player is eligible to take an action
+	if player.fighter_component.action_cooldown == 0:
+		var action: Action = await input_handler.get_action(player)
+		if action:
+			# Perform action if cooldown is zero or action has no cooldown
+			if action.timer > 0 and action_timer <= 0 or action.timer == 0:
+				if action.perform():
+					action_timer = action.timer
+					map.update_fov(player.grid_position)
+					_handle_enemy_turns()
+	else:
+		#if the player is not eligible to take an action, decrement their action cooldown and give enemies a turn
+		player.fighter_component.action_cooldown -= 1
+		_handle_enemy_turns()
+	action_timer -= delta
 
 # Function to handle enemy turns
 func _handle_enemy_turns() -> void:
 	# Iterate through entities and perform AI actions
 	for entity in get_map_data().entities:
 		if entity.ai_component != null and entity != player:
-			entity.ai_component.perform()
+			if entity.fighter_component.action_cooldown == 0:
+				entity.ai_component.perform()
+			else:
+				entity.fighter_component.action_cooldown -= 1
 
 # Function to handle player level up requests
 func _on_player_level_up_requested() -> void:

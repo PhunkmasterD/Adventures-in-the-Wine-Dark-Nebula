@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://c515utoxgsros"]
 
 [ext_resource type="Texture2D" uid="uid://drlis1fmg4swo" path="res://assets/images/menu_background.png" id="1_dofti"]
-[ext_resource type="Script" path="res://src/GUI/MainMenu/main_menu.gd" id="1_ksfxg"]
+[ext_resource type="Script" uid="uid://4laxexxc8rwq" path="res://src/GUI/MainMenu/main_menu.gd" id="1_ksfxg"]
 [ext_resource type="FontFile" uid="uid://bk0fq2awle8d5" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney Pixel.ttf" id="2_tjeoq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vognd"]

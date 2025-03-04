@@ -18,5 +18,8 @@ func perform() -> bool:
 	
 	# Move the entity to the destination
 	entity.move(offset)
-	return true
 
+	#set the action cooldown
+	entity.fighter_component.action_cooldown = 1
+	
+	return true

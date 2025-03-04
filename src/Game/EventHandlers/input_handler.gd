@@ -1,7 +1,7 @@
 class_name InputHandler
 extends Node
 
-enum InputHandlers {MAIN_GAME, OVERWORLD, GAME_OVER, HISTORY_VIEWER, DUMMY}
+enum InputHandlers {MAIN_GAME, OVERWORLD, GAME_OVER, HISTORY_VIEWER, DUMMY, MACRO}
 
 @export var start_input_handler: InputHandlers
 
@@ -11,9 +11,12 @@ enum InputHandlers {MAIN_GAME, OVERWORLD, GAME_OVER, HISTORY_VIEWER, DUMMY}
 	InputHandlers.GAME_OVER: $GameOverInputHandler,
 	InputHandlers.HISTORY_VIEWER: $HistoryViewerInputHandler,
 	InputHandlers.DUMMY: $DummyInputHandler,
+	InputHandlers.MACRO: $MacroInputHandler,
 }
 
 var current_input_handler: BaseInputHandler
+var current_input_node: InputHandlers
+var previous_input_node: InputHandlers
 
 
 func _ready() -> void:
@@ -28,7 +31,12 @@ func get_action(player: Entity) -> Action:
 
 
 func transition_to(input_handler: InputHandlers) -> void:
+	previous_input_node = current_input_node
 	if current_input_handler != null:
 		current_input_handler.exit()
 	current_input_handler = input_handler_nodes[input_handler]
+	current_input_node = input_handler
 	current_input_handler.enter()
+
+func transition_to_previous() -> void:
+	transition_to(previous_input_node)

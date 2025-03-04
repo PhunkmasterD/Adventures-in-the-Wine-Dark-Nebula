@@ -32,4 +32,6 @@ func perform() -> bool:
 		attack_description += " but does no damage."
 		MessageLog.send_message(attack_description, attack_color)
 	
+	# Set the action cooldown
+	entity.fighter_component.action_cooldown = 2
 	return true

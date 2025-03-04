@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="EntityDefinition" load_steps=9 format=3 uid="uid://dee7p8h0bkltn"]
 
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="1_fc2yb"]
+[ext_resource type="Script" uid="uid://b3mm1tmh1ucgw" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="1_fc2yb"]
 [ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="1_fkqvq"]
-[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_q5qby"]
+[ext_resource type="Script" uid="uid://2kky7ansbu1q" path="res://src/Entities/entity_definition.gd" id="1_q5qby"]
 [ext_resource type="Texture2D" uid="uid://h7i8uiwlysq2" path="res://assets/images/kenney_1-bit-pack/monochrome_packed.png" id="2_4552x"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/level_component_definition.gd" id="3_7tyry"]
+[ext_resource type="Script" uid="uid://ck4i4hqeq4ugs" path="res://src/Entities/Actors/Components/ComponentDefinitions/level_component_definition.gd" id="3_7tyry"]
 
 [sub_resource type="Resource" id="Resource_hmkve"]
 script = ExtResource("1_fc2yb")

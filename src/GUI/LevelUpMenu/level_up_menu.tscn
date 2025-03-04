@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://b7ysfvcjj81a8"]
 
-[ext_resource type="Script" path="res://src/GUI/LevelUpMenu/level_up_menu.gd" id="1_rhmq5"]
+[ext_resource type="Script" uid="uid://0be8rct6fsbk" path="res://src/GUI/LevelUpMenu/level_up_menu.gd" id="1_rhmq5"]
 [ext_resource type="Texture2D" uid="uid://h7i8uiwlysq2" path="res://assets/images/kenney_1-bit-pack/monochrome_packed.png" id="1_vci68"]
 [ext_resource type="FontFile" uid="uid://bk0fq2awle8d5" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney Pixel.ttf" id="2_x0m25"]
 
@@ -104,10 +104,10 @@ size_flags_horizontal = 3
 theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_x0m25")
 theme_override_styles/focus = SubResource("StyleBoxFlat_xa2i8")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_mg1cb")
@@ -128,10 +128,10 @@ size_flags_horizontal = 3
 theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_x0m25")
 theme_override_styles/focus = SubResource("StyleBoxFlat_xa2i8")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_mg1cb")
@@ -152,10 +152,10 @@ size_flags_horizontal = 3
 theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_x0m25")
 theme_override_styles/focus = SubResource("StyleBoxFlat_xa2i8")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_mg1cb")
