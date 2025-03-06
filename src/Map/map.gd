@@ -52,6 +52,17 @@ func generate_locale(player: Entity, location: Vector3i, persistent_flag: bool =
 	_place_entities()
 	_place_tiles()
 
+# Function to reload the overworld and switch the current map_data to the overworld.
+func reload_overworld(player: Entity) -> void:
+	# Load the overworld map
+	map_data = map_data_service.load_overworld(player)
+	# Connect the entity_placed signal to add entities to the map
+	if not map_data.entity_placed.is_connected(entities.add_child):
+		map_data.entity_placed.connect(entities.add_child)
+	# Place entities and tiles on the map
+	_place_entities()
+	_place_tiles()
+
 # Function to load a saved map and switch the current map_data to that saved map. 
 func load_saved_map(player: Entity, coordinates: Vector3i):
 	# Load the saved map data
@@ -66,7 +77,9 @@ func load_saved_map(player: Entity, coordinates: Vector3i):
 # Function called when a player explores a locale, which saves the current overworld map and goes through the process of generating a local
 func explore_locale(overworld_tile: Tile) -> void:
 	# Save the current overworld map
-	map_data_service.save_map(map_data.coordinates, map_data)
+	map_data_service.save_overworld(map_data)
+	# Save the player data
+	get_parent().save_player()
 	# Get the coordinates for the locale
 	var locale_coordinates = Vector3i(overworld_tile.get_grid_position().x, overworld_tile.get_grid_position().y, 0)
 	var player: Entity = map_data.player
@@ -86,6 +99,7 @@ func explore_locale(overworld_tile: Tile) -> void:
 	player.restore(player_save_data)
 	player.grid_position = map_data.down_stairs_location
 	player.position = Grid.grid_to_world(player.grid_position)
+	player.map_data = map_data
 	player.get_node("Camera2D").make_current()
 	# Emit the map_changed signal with the map dimensions
 	SignalBus.map_changed.emit(map_data.width, map_data.height)
@@ -111,11 +125,12 @@ func return_to_overworld() -> void:
 	# Clear the current map
 	clear_map()
 	# Load the overworld map
-	load_saved_map(player, Vector3i(0, 0, 0))
+	reload_overworld(player)
 	# Restore the player's state
 	player.restore(player_save_data)
 	player.grid_position = overworld_tile_location
 	player.position = Grid.grid_to_world(player.grid_position)
+	player.map_data = map_data
 	player.get_node("Camera2D").make_current()
 	# Emit the map_changed signal with the map dimensions
 	SignalBus.map_changed.emit(map_data.width, map_data.height)
@@ -125,7 +140,9 @@ func return_to_overworld() -> void:
 	# Emit signals to the parent node
 	get_parent().emit_signals()
 	# Save the overworld map
-	map_data_service.save_map(map_data.coordinates, map_data)
+	map_data_service.save_overworld(map_data)
+	# Save the player data
+	get_parent().save_player()
 
 # Function to clear the map of all entities and tiles, only called when transitioning to a different map
 func clear_map() -> void:
@@ -136,18 +153,16 @@ func clear_map() -> void:
 	for tile in tiles.get_children():
 		tile.queue_free()
 
-# Function to save all maps, currently not used. 
-func save_maps() -> bool:
-	# Save all maps to file
-	map_data_service._save_to_file()
-	return true
-
 # Function to load the game if the load game options was chosen, setting up the map and placing the player in the overworld. 
 func load_game(player: Entity) -> bool:
 	# Load all maps from file
+	map_data_service._load_overworld_from_file()
 	map_data_service._load_from_file()
+	# Load the player data
+	get_parent().load_player()
 	# Load the overworld map
-	map_data = map_data_service.load_map(Vector3i(0, 0, 0), player)
+	map_data = map_data_service.load_overworld(player)
+	player.map_data = map_data
 	# If no map data is found, create a new map
 	if map_data == null:
 		map_data = MapData.new(Vector3i(0, 0, 0), 0, 0, player)

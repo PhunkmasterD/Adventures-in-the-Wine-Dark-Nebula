@@ -1,12 +1,6 @@
 class_name WorldGenerator
 extends Node
 
-# Dictionary containing the types of tiles and their respective weights
-const tile_types = {
-	"meadow": 50,
-	"forest": 30,
-}
-
 # Map dimensions and number of biomes from configuration
 var map_width: int = MapConfig.world_map_width
 var map_height: int = MapConfig.world_map_height
@@ -52,12 +46,16 @@ func generate_world(player: Entity, coordinates: Vector3i) -> MapData:
 
 # Generate a list of biomes with random positions and sizes
 func _generate_biomes() -> Array:
+	var tile_type_weights = {
+	TileTypes.TileKey.MEADOW: 50,
+	TileTypes.TileKey.FOREST: 30,
+	}
 	var biomes = []
-	
+
 	for i in range(num_biomes):
 		# Create a biome with a random type, position, and size
 		var biome = {
-			"type": _pick_weighted(tile_types),
+			"type": _pick_weighted(tile_type_weights),
 			"position": Vector2i(_rng.randi_range(0, map_width - 1), _rng.randi_range(0, map_height - 1)),
 			"size": _rng.randi_range(5, 15)
 		}
@@ -65,8 +63,8 @@ func _generate_biomes() -> Array:
 	return biomes
 
 # Pick a tile type based on weighted chances
-func _pick_weighted(weighted_chances: Dictionary) -> String:
-	var keys: Array[String] = []
+func _pick_weighted(weighted_chances: Dictionary) -> TileTypes.TileKey:
+	var keys: Array[TileTypes.TileKey] = []
 	var cumulative_chances := []
 	var sum: int = 0
 	
@@ -79,7 +77,7 @@ func _pick_weighted(weighted_chances: Dictionary) -> String:
 	
 	# Pick a random chance
 	var random_chance: int = _rng.randi_range(0, sum - 1)
-	var selection: String
+	var selection: TileTypes.TileKey
 	
 	# Select the tile type based on the random chance
 	for i in cumulative_chances.size():

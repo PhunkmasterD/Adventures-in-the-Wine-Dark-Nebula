@@ -9,6 +9,7 @@ const level_up_menu_scene: PackedScene = preload("res://src/GUI/LevelUpMenu/leve
 @onready var input_handler: InputHandler = $InputHandler
 @onready var map: Map = $Map
 @onready var camera: Camera2D = $Camera2D
+@onready var game_data: GameData = $GameData
 @onready var action_timer: float
 
 # Function to start a new game
@@ -34,25 +35,13 @@ func new_game() -> void:
 	).call_deferred()
 	camera.make_current.call_deferred()
 
-# Function to emit necessary signals
-func emit_signals() -> void:
-	# Connect player level up signal and emit player created signal
-	player.level_component.level_up_required.connect(_on_player_level_up_requested)
-	player_created.emit(player)
-
-# Function to add starting equipment to the player
-func _add_player_start_equipment(item_key: String) -> void:
-	# Create item entity and add to player's inventory and equipment
-	var item := Entity.new(null, Vector2i.ZERO, item_key)
-	player.inventory_component.items.append(item)
-	player.equipment_component.toggle_equip(item, false)
-
 # Function to load a saved game
 func load_game() -> bool:
 	print("Loading game...")
 	print("Loading player...")
 	# Create player entity and load map
 	player = Entity.new(null, Vector2i.ZERO, "")
+	load_player()
 	if not map.load_game(player):
 		print("Error: Map is not initialized, aborting...")
 		return false
@@ -77,6 +66,19 @@ func load_game() -> bool:
 	).call_deferred()
 	camera.make_current.call_deferred()
 	return true
+
+# Function to emit necessary signals
+func emit_signals() -> void:
+	# Connect player level up signal and emit player created signal
+	player.level_component.level_up_required.connect(_on_player_level_up_requested)
+	player_created.emit(player)
+
+# Function to add starting equipment to the player
+func _add_player_start_equipment(item_key: String) -> void:
+	# Create item entity and add to player's inventory and equipment
+	var item := Entity.new(null, Vector2i.ZERO, item_key)
+	player.inventory_component.items.append(item)
+	player.equipment_component.toggle_equip(item, false)
 
 # Function to handle the main game loop
 func _physics_process(delta: float) -> void:
@@ -116,6 +118,12 @@ func _on_player_level_up_requested() -> void:
 	set_physics_process(false)
 	await level_up_menu.level_up_completed
 	set_physics_process.bind(true).call_deferred()
+
+func save_player() -> void:
+	game_data.save_player(player)
+
+func load_player() -> void:
+	game_data.load_player(player)
 
 # Function to get the current map data
 func get_map_data() -> MapData:

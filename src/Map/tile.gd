@@ -1,16 +1,6 @@
 class_name Tile
 extends Sprite2D
 
-# Dictionary to preload tile definitions
-const tile_types = {
-    "meadow": preload("res://assets/definitions/tiles/overworld/tile_definition_meadow.tres"),
-    "forest": preload("res://assets/definitions/tiles/overworld/tile_definition_forest.tres"),
-    "down_stairs": preload("res://assets/definitions/tiles/map_tiles/tile_definition_down_stairs.tres"),
-    "water": preload("res://assets/definitions/tiles/map_tiles/tile_definition_water.tres"),
-    "wall": preload("res://assets/definitions/tiles/map_tiles/tile_definition_wall.tres"),
-    "floor": preload("res://assets/definitions/tiles/map_tiles/tile_definition_floor.tres")
-}
-
 # Variables to store tile properties and references
 var tile_name: String
 var _definition: TileDefinition
@@ -35,10 +25,10 @@ var is_in_view: bool = false:
 		if is_in_view and not is_explored:
 			is_explored = true
 
-var key: String
+var key: TileTypes.TileKey
 
 # Initialization function for tiles, setting up basic variables
-func _init(entity: Entity, grid_position: Vector2i, key: String) -> void:
+func _init(entity: Entity, grid_position: Vector2i, key: TileTypes.TileKey) -> void:
 	# Initially, the tile is not visible
 	visible = false
 	centered = false
@@ -50,10 +40,10 @@ func _init(entity: Entity, grid_position: Vector2i, key: String) -> void:
 	set_tile_type(key)
 
 # Function to set the tile type based on the dictionary definitions for each tile type
-func set_tile_type(key: String) -> void:
+func set_tile_type(key: TileTypes.TileKey) -> void:
 	self.key = key
 	# Load the tile definition from the dictionary
-	_definition = tile_types[key]
+	_definition = TileTypes.tile_definitions[key]
 	# Set the tile's name, texture, and initial color
 	tile_name = _definition.tile_name
 	texture = _definition.texture

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://n87rw5cxnnn8"]
+[gd_scene load_steps=36 format=3 uid="uid://n87rw5cxnnn8"]
 
 [ext_resource type="Script" uid="uid://ff1s8v5c6swm" path="res://src/Game/game.gd" id="1_ne6pe"]
 [ext_resource type="Script" uid="uid://s3i3yx0bpbas" path="res://src/Game/game_root.gd" id="1_yidwt"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" uid="uid://cw67wmlbl43pp" path="res://src/GUI/dungeon_floor_label.gd" id="16_j80u7"]
 [ext_resource type="StyleBox" uid="uid://daeneodphwlvv" path="res://assets/resources/square_panel.tres" id="17_ykbop"]
 [ext_resource type="Script" uid="uid://cb0pv76povysr" path="res://src/GUI/character_info_box.gd" id="17_yvib5"]
+[ext_resource type="Script" uid="uid://dxvijdcxj3swd" path="res://src/Game/game_data.gd" id="18_6phm1"]
 [ext_resource type="LabelSettings" uid="uid://dwo5wxa1b5g0g" path="res://assets/resources/message_label_settings.tres" id="20_vjk43"]
 [ext_resource type="Script" uid="uid://chke8b5t7anif" path="res://src/GUI/overworld_tile_label.gd" id="21_yuqwt"]
 
@@ -150,6 +151,9 @@ limit_right = 1280
 limit_bottom = 720
 position_smoothing_enabled = true
 script = ExtResource("16_fatmi")
+
+[node name="GameData" type="Node" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game"]
+script = ExtResource("18_6phm1")
 
 [node name="InfoBar" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2

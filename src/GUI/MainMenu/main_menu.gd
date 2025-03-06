@@ -14,8 +14,8 @@ func _ready():
 	# Set focus to the first button
 	first_button.grab_focus()
 	# Check if a save file exists and enable/disable the load button accordingly
-	var has_save_file: bool = FileAccess.file_exists("user://maps_save.dat")
-	load_button.disabled = not has_save_file
+	#var has_save_file: bool = FileAccess.file_exists("user://world_data.dat")
+	#load_button.disabled = not has_save_file
 
 # Called when the new game button is pressed
 func _on_new_button_pressed():

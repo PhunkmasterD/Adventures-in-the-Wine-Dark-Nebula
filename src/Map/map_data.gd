@@ -1,6 +1,7 @@
 class_name MapData
 extends RefCounted
 
+
 # Signal for entity placement
 signal entity_placed(entity)
 
@@ -37,7 +38,7 @@ func _setup_tiles() -> void:
 		for x in width:
 			var tile_position := Vector2i(x, y)
 			# Initialize each tile as a wall
-			var tile := Tile.new(player, tile_position, "wall")
+			var tile := Tile.new(player, tile_position, TileTypes.TileKey.FOREST)
 			tiles.append(tile)
 
 # Function to check if a coordinate is in bounds
@@ -140,9 +141,6 @@ func restore(save_data: Dictionary) -> MapData:
 		tiles[i].restore(save_data["tiles"][i])
 	# Set up pathfinding
 	setup_pathfinding()
-	# Restore the player's state
-	player.restore(save_data["player"])
-	player.map_data = self
 	entities = [player]
 	# Restore other entities
 	for entity_data in save_data["entities"]:
@@ -159,7 +157,6 @@ func get_save_data() -> Dictionary:
 		"persistent": persistent,
 		"width": width,
 		"height": height,
-		"player": player.get_save_data(),
 		"down_stairs_location": {"x": down_stairs_location.x, "y": down_stairs_location.y},
 		"entities": [],
 		"tiles": []

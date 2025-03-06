@@ -74,7 +74,7 @@ func set_entity_type(key: String) -> void:
 		AIType.HOSTILE:
 			ai_component = HostileEnemyAIComponent.new()
 			add_child(ai_component)
-	
+
 	# Initialize fighter component if applicable
 	if entity_definition.fighter_definition:
 		fighter_component = FighterComponent.new(entity_definition.fighter_definition)

@@ -19,6 +19,7 @@ config/icon="res://assets/images/menu_background.png"
 
 SignalBus="*res://src/Utils/signal_bus.gd"
 MapConfig="*res://src/Map/map_config.gd"
+TileTypes="*res://src/Map/Map_Resource_Definitions/tile_types.gd"
 
 [input]
 

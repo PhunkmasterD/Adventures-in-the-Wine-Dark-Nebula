@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_ha46f")
-world_map_width = 100
+world_map_width = 99
 world_map_height = 50
 world_map_depth = 5
 num_biomes = 25

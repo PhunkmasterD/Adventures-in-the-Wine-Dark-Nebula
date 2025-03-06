@@ -93,7 +93,7 @@ func generate_dungeon(player: Entity, coordinates: Vector3i) -> MapData:
 	# Set the location of the down stairs
 	dungeon.down_stairs_location = center_last_room
 	var down_tile: Tile = dungeon.get_tile(center_last_room)
-	down_tile.set_tile_type("down_stairs")
+	down_tile.set_tile_type(TileTypes.TileKey.DOWN_STAIRS)
 	
 	# Set up pathfinding for the dungeon
 	dungeon.setup_pathfinding()
@@ -138,7 +138,7 @@ func _tunnel_between(dungeon: MapData, start: Vector2i, end: Vector2i) -> void:
 func _carve_tile(dungeon: MapData, x: int, y: int) -> void:
 	var tile_position = Vector2i(x, y)
 	var tile: Tile = dungeon.get_tile(tile_position)
-	tile.set_tile_type("floor")
+	tile.set_tile_type(TileTypes.TileKey.FLOOR)
 
 # Function to get the maximum value of an entity type for a floor
 func _get_max_value_for_floor(weighted_chances_by_floor: Array, current_floor: int) -> int:
@@ -230,5 +230,3 @@ func _place_entities(dungeon: MapData, room: Rect2i, current_floor: int) -> void
 			var new_entity := Entity.new(dungeon, new_entity_position, entity_key)
 			print("Entity placed: %s at position %s" % [entity_key, new_entity_position])
 			dungeon.entities.append(new_entity)
-
-
