@@ -10,8 +10,6 @@ region = Rect2(48, 96, 16, 16)
 [resource]
 script = ExtResource("1_w5u4w")
 tile_name = "Down Stairs"
-overworld_tile = false
-persistent = false
 texture = SubResource("AtlasTexture_0v0w2")
 color_lit = Color(1, 1, 1, 1)
 color_dark = Color(0.498039, 0.498039, 0.498039, 1)

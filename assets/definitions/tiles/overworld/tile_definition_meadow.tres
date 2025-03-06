@@ -1,17 +1,22 @@
-[gd_resource type="Resource" script_class="TileDefinition" load_steps=4 format=3 uid="uid://smscudi5o3ly"]
+[gd_resource type="Resource" script_class="TileDefinition" load_steps=6 format=3 uid="uid://smscudi5o3ly"]
 
 [ext_resource type="Script" uid="uid://dxdov5dyvghdh" path="res://src/Map/Map_Resource_Definitions/tile_definition.gd" id="1_tnvdc"]
 [ext_resource type="Texture2D" uid="uid://h7i8uiwlysq2" path="res://assets/images/kenney_1-bit-pack/monochrome_packed.png" id="2_eaju2"]
+[ext_resource type="Script" uid="uid://qpowcs3e7y6l" path="res://src/Map/Map_Resource_Definitions/world_tile_definition.gd" id="3_q085g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vfxfk"]
 atlas = ExtResource("2_eaju2")
 region = Rect2(80, 0, 16, 16)
 
+[sub_resource type="Resource" id="Resource_q085g"]
+script = ExtResource("3_q085g")
+is_persistent = true
+metadata/_custom_type_script = "uid://qpowcs3e7y6l"
+
 [resource]
 script = ExtResource("1_tnvdc")
 tile_name = "Meadows"
-overworld_tile = true
-persistent = false
+world_tile_definition = SubResource("Resource_q085g")
 texture = SubResource("AtlasTexture_vfxfk")
 color_lit = Color(0, 0.794749, 0.187098, 1)
 color_dark = Color(0.0704088, 0.136435, 0.0888564, 1)

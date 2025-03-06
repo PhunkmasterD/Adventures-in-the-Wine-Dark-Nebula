@@ -85,7 +85,7 @@ func explore_locale(overworld_tile: Tile) -> void:
 	var player: Entity = map_data.player
 	# Save the player's current state
 	var player_save_data = player.get_save_data()
-	var persistent = overworld_tile.is_persistent()
+	var persistent = overworld_tile.world_tile_component.is_persistent()
 	# Remove the player from the current map
 	entities.remove_child(player)
 	# Clear the current map

@@ -6,6 +6,7 @@ var tile_name: String
 var _definition: TileDefinition
 var player: Entity
 var location_map: MapData
+var world_tile_component: WorldTileComponent
 
 # Boolean with setter to track if the tile is explored
 var is_explored: bool = false:
@@ -48,17 +49,13 @@ func set_tile_type(key: TileTypes.TileKey) -> void:
 	tile_name = _definition.tile_name
 	texture = _definition.texture
 	modulate = _definition.color_dark
-	# If the tile is not an overworld tile, set it as non-persistent
-	if _definition.overworld_tile == false:
-		_definition.persistent = false
+	if _definition.world_tile_definition:
+		world_tile_component = WorldTileComponent.new(_definition.world_tile_definition)
+		add_child(world_tile_component)
 
 # Function to check if the tile is an overworld tile
 func is_overworld() -> bool:
-	return _definition.overworld_tile
-
-# Function to check if the tile is persistent
-func is_persistent() -> bool:
-	return _definition.persistent
+	return world_tile_component != null
 
 # Function to check if the tile is walkable
 func is_walkable() -> bool:

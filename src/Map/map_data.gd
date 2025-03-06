@@ -38,7 +38,7 @@ func _setup_tiles() -> void:
 		for x in width:
 			var tile_position := Vector2i(x, y)
 			# Initialize each tile as a wall
-			var tile := Tile.new(player, tile_position, TileTypes.TileKey.FOREST)
+			var tile := Tile.new(player, tile_position, TileTypes.TileKey.WALL)
 			tiles.append(tile)
 
 # Function to check if a coordinate is in bounds

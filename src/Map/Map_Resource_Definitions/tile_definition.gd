@@ -7,8 +7,7 @@ extends Resource
 
 # Overworld properties
 @export_category("Overworld")
-@export var overworld_tile: bool = false
-@export var persistent: bool = false
+@export var world_tile_definition: WorldTileDefinition
 
 # Visual properties
 @export_category("Visuals")

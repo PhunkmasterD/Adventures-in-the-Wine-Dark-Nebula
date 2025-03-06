@@ -45,14 +45,12 @@ func _ready() -> void:
 func generate_dungeon(player: Entity, coordinates: Vector3i) -> MapData:
 	var dungeon := MapData.new(coordinates, map_width, map_height, player)
 	dungeon.entities.append(player)
-	print("Generating dungeon...")
 
 	var rooms: Array[Rect2i] = []
 	var center_last_room: Vector2i
 	
 	# Try to generate the specified number of rooms
 	for _try_room in max_rooms:
-		print("Generating rooms %s/%s" % [_try_room, max_rooms])
 		# Randomly determine the size of the room
 		var room_width: int = _rng.randi_range(room_min_size, room_max_size)
 		var room_height: int = _rng.randi_range(room_min_size, room_max_size)
@@ -89,7 +87,6 @@ func generate_dungeon(player: Entity, coordinates: Vector3i) -> MapData:
 		
 		rooms.append(new_room)
 	
-	print("Finalizing dungeon...")
 	# Set the location of the down stairs
 	dungeon.down_stairs_location = center_last_room
 	var down_tile: Tile = dungeon.get_tile(center_last_room)
@@ -97,7 +94,6 @@ func generate_dungeon(player: Entity, coordinates: Vector3i) -> MapData:
 	
 	# Set up pathfinding for the dungeon
 	dungeon.setup_pathfinding()
-	print("Dungeon generation complete")
 	return dungeon
 
 # Function to square carve a room in the dungeon
@@ -196,15 +192,12 @@ func _pick_weighted(weighted_chances: Dictionary) -> String:
 
 # Function to place entities in a room
 func _place_entities(dungeon: MapData, room: Rect2i, current_floor: int) -> void:
-	print("Placing Entities in room: %s" % room)
 	# Get the maximum number of monsters and items for the current floor
 	var max_monsters_per_room: int = _get_max_value_for_floor(max_monsters_by_floor, current_floor)
 	var max_items_per_room: int = _get_max_value_for_floor(max_items_by_floor, current_floor)
 	# Randomly determine the number of monsters and items to place
 	var number_of_monsters: int = _rng.randi_range(0, max_monsters_per_room)
 	var number_of_items: int = _rng.randi_range(0, max_items_per_room)
-	
-	print("Number of monsters: %d, Number of items: %d" % [number_of_monsters, number_of_items])
 	
 	# Get the list of monsters and items to place
 	var monsters: Array[String] = _get_entities_at_random(enemy_chances, number_of_monsters, current_floor)
@@ -228,5 +221,4 @@ func _place_entities(dungeon: MapData, room: Rect2i, current_floor: int) -> void
 		# Place the entity if the position is not occupied
 		if can_place:
 			var new_entity := Entity.new(dungeon, new_entity_position, entity_key)
-			print("Entity placed: %s at position %s" % [entity_key, new_entity_position])
 			dungeon.entities.append(new_entity)
