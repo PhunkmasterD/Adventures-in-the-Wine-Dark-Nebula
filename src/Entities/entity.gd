@@ -57,6 +57,7 @@ func _init(map_data: MapData, start_position: Vector2i, key: String = "") -> voi
 	# Set entity type if key is provided
 	if key != "":
 		set_entity_type(key)
+	SignalBus.clear_orphan_nodes.connect(_on_clear_orphan_nodes)
 
 # Function to set the entity type based on the key
 func set_entity_type(key: String) -> void:
@@ -187,3 +188,7 @@ func restore(save_data: Dictionary) -> void:
 		equipment_component.restore(save_data["equipment_component"])
 	if level_component and save_data.has("level_component"):
 		level_component.restore(save_data["level_component"])
+
+func _on_clear_orphan_nodes():
+	if self.get_parent() == null:
+		queue_free()

@@ -20,6 +20,7 @@ func _ready():
 # Called when the new game button is pressed
 func _on_new_button_pressed():
 	# Emit the game_requested signal with 'false' indicating a new game
+	print_orphan_nodes()
 	game_requested.emit(false)
 
 # Called when the load game button is pressed

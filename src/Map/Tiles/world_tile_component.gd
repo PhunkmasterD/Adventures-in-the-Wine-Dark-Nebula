@@ -2,6 +2,7 @@ class_name WorldTileComponent
 extends Tile
 
 var persistent: bool 
+var chunk: int
 
 # Initialization function for tiles, setting up basic variables
 func _init(_definition: WorldTileDefinition) -> void:

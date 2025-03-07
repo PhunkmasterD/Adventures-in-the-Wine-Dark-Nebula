@@ -16,48 +16,52 @@ func _ready() -> void:
 # Generate the world map with biomes and place the player entity
 func generate_world(player: Entity, coordinates: Vector3i) -> MapData:
 	print("Generating world...")
-	var world := MapData.new(coordinates, map_width, map_height, player)
+	var world := MapData.new(coordinates, map_width, map_height, player, -1)
 	var map:= Rect2i(0, 0, map_width, map_height)
 	world.entities.append(player)
 
-	print("Generating biomes...")	
+	for tile in world.tiles:
+		tile.set_tile_type(TileTypes.TileKey.WATER)
+
+	print("Generating islands...")	
 	var biomes = _generate_biomes()
 	for biome in biomes:
-		print("Placing %s biome at %s" % [biome["type"], biome["position"]])
+		print("Placing %s island at %s" % [biome["type"], biome["position"]])
 		var biome_type = biome["type"]
 		var biome_position = biome["position"]
 		var biome_size = biome["size"]
 
-		# Place the biome tiles within the map boundaries
-		for y in range(biome_position.y - biome_size, biome_position.y + biome_size):
-			for x in range(biome_position.x - biome_size, biome_position.x + biome_size):
+		# Place the island tiles within the map boundaries
+		for y in range(biome_position.y, biome_position.y + biome_size):
+			for x in range(biome_position.x, biome_position.x + biome_size):
 				if x >= 0 and x < map_width and y >= 0 and y < map_height:
 					var tile_position = Vector2i(x, y)
 					var tile: Tile = world.get_tile(tile_position)
 					tile.set_tile_type(biome_type)
 
-	print("Biomes placed, finalizing world...")
-	player.grid_position = map.get_center()
+	print("Islands placed, finalizing world...")
+	player.grid_position = Vector2i(0, 0)
 	player.map_data = world
-	 
+		
 	world.setup_pathfinding()
 	print("World generation complete")
 	return world
 
-# Generate a list of biomes with random positions and sizes
+# Generate a list of islands with random positions and sizes
 func _generate_biomes() -> Array:
 	var tile_type_weights = {
-	TileTypes.TileKey.MEADOW: 50,
-	TileTypes.TileKey.FOREST: 30,
+		TileTypes.TileKey.MEADOW: 50,
+		TileTypes.TileKey.FOREST: 30,
 	}
 	var biomes = []
 
 	for i in range(num_biomes):
-		# Create a biome with a random type, position, and size
+		# Create an island with a random type, position, and size
+		var island_size = _rng.randi_range(3, 5)
 		var biome = {
 			"type": _pick_weighted(tile_type_weights),
-			"position": Vector2i(_rng.randi_range(0, map_width - 1), _rng.randi_range(0, map_height - 1)),
-			"size": _rng.randi_range(5, 15)
+			"position": Vector2i(_rng.randi_range(0, map_width - island_size), _rng.randi_range(0, map_height - island_size)),
+			"size": island_size
 		}
 		biomes.append(biome)
 	return biomes

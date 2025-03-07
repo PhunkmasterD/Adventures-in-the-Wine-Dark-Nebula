@@ -38,6 +38,7 @@ func _init(entity: Entity, grid_position: Vector2i, key: TileTypes.TileKey) -> v
 	# Set the tile's position based on the grid position
 	position = Grid.grid_to_world(grid_position)
 	# Set the tile type using the provided key
+	SignalBus.clear_orphan_nodes.connect(_on_clear_orphan_nodes)
 	set_tile_type(key)
 
 # Function to set the tile type based on the dictionary definitions for each tile type
@@ -80,3 +81,7 @@ func get_save_data() -> Dictionary:
 func restore(save_data: Dictionary) -> void:
 		set_tile_type(save_data["key"])
 		is_explored = save_data["is_explored"]
+
+func _on_clear_orphan_nodes():
+	if self.get_parent() == null:
+		self.queue_free()

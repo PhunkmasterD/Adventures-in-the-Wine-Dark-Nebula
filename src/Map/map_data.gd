@@ -10,6 +10,7 @@ const entity_pathfinding_weight = 10.0
 
 var coordinates: Vector3i
 var persistent: bool = false
+var chunk: int
 var width: int
 var height: int
 var tiles: Array[Tile]
@@ -19,16 +20,18 @@ var down_stairs_location: Vector2i
 var pathfinder: AStarGrid2D
 
 # Initialization function
-func _init(world_coordinates: Vector3i, map_width: int, map_height: int, player: Entity, persistent_flag: bool = false) -> void:
+func _init(world_coordinates: Vector3i, map_width: int, map_height: int, player: Entity, map_chunk: int, persistent_flag: bool = false) -> void:
 	# Set initial map properties
 	coordinates = world_coordinates
 	persistent = persistent_flag
+	chunk = map_chunk
 	width = map_width
 	height = map_height
 	self.player = player
 	entities = []
 	# Set up the tiles for the map
 	_setup_tiles()
+
 
 # Function to set up array of generic tiles across the map
 func _setup_tiles() -> void:
@@ -131,6 +134,7 @@ func get_actor_at_location(location: Vector2i) -> Entity:
 func restore(save_data: Dictionary) -> MapData:
 	# Restore basic map properties
 	coordinates = Vector3i(save_data["coordinates"]["x"], save_data["coordinates"]["y"], save_data["coordinates"]["z"])
+	chunk = save_data["chunk"]
 	persistent = save_data["persistent"]
 	width = save_data["width"]
 	height = save_data["height"]
@@ -147,13 +151,13 @@ func restore(save_data: Dictionary) -> MapData:
 		var new_entity := Entity.new(self, Vector2i.ZERO, "")
 		new_entity.restore(entity_data)
 		entities.append(new_entity)
-		print("Restored entity: %s" % new_entity._definition.name)
 	return self
 
 # Function to get data of the map in the correct format to save it, along with all the entities in the map
 func get_save_data() -> Dictionary:
 	var save_data := {
 		"coordinates": {"x": coordinates.x, "y": coordinates.y, "z": coordinates.z},
+		"chunk": chunk,
 		"persistent": persistent,
 		"width": width,
 		"height": height,

@@ -42,8 +42,8 @@ func _ready() -> void:
 	_rng.randomize()
 
 # Main function to generate a dungeon
-func generate_dungeon(player: Entity, coordinates: Vector3i) -> MapData:
-	var dungeon := MapData.new(coordinates, map_width, map_height, player)
+func generate_dungeon(player: Entity, coordinates: Vector3i, chunk: int) -> MapData:
+	var dungeon := MapData.new(coordinates, map_width, map_height, player, chunk)
 	dungeon.entities.append(player)
 
 	var rooms: Array[Rect2i] = []

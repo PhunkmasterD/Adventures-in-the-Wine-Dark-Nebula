@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource("1_ha46f")
-world_map_width = 80
-world_map_height = 40
+world_map_width = 30
+world_map_height = 20
 world_map_depth = 5
-num_biomes = 25
+num_biomes = 5
 dungeon_map_width = 80
 dungeon_map_height = 45
 dungeon_max_rooms = 30

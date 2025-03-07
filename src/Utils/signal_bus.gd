@@ -16,3 +16,5 @@ signal message_sent(text, color)
 signal escape_requested
 signal zoom_changed(reset: bool, factor: float)
 
+#orphan node signals
+signal clear_orphan_nodes()

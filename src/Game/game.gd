@@ -15,6 +15,7 @@ const level_up_menu_scene: PackedScene = preload("res://src/GUI/LevelUpMenu/leve
 # Function to start a new game
 func new_game() -> void:
 	print("Initializing new game...")
+	create_directory_in_user_folder()
 	print("Creating player...")
 	# Create player entity and add starting equipment
 	player = Entity.new(null, Vector2i.ZERO, "player")
@@ -34,6 +35,30 @@ func new_game() -> void:
 		GameColors.WELCOME_TEXT
 	).call_deferred()
 	camera.make_current.call_deferred()
+	save_player()
+
+
+func create_directory_in_user_folder() -> void:
+	var dir = DirAccess.open("user://")
+	var save_path = "user://save_data"
+	if dir.dir_exists(save_path):
+		print("Directory already exists: %s" % save_path)
+		# Open the save_data directory
+		var save_dir = DirAccess.open(save_path)
+		if save_dir:
+			save_dir.list_dir_begin()
+			var file_name = save_dir.get_next()
+			while file_name != "":
+				if !save_dir.current_is_dir():
+					save_dir.remove(file_name)
+				file_name = save_dir.get_next()
+			save_dir.list_dir_end()
+	var err = dir.make_dir(save_path)
+	if err == OK:
+		print("Directory created: %s" % save_path)
+	else:
+		print("Failed to create directory: %s" % save_path)
+
 
 # Function to load a saved game
 func load_game() -> bool:

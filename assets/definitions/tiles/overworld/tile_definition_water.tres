@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="TileDefinition" load_steps=6 format=3 uid="uid://bi3qyay8l73hf"]
+
+[ext_resource type="Script" uid="uid://dxdov5dyvghdh" path="res://src/Map/Map_Resource_Definitions/tile_definition.gd" id="1_akovq"]
+[ext_resource type="Texture2D" uid="uid://h7i8uiwlysq2" path="res://assets/images/kenney_1-bit-pack/monochrome_packed.png" id="2_l0vcx"]
+[ext_resource type="Script" uid="uid://qpowcs3e7y6l" path="res://src/Map/Map_Resource_Definitions/world_tile_definition.gd" id="3_fgroh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndpik"]
+atlas = ExtResource("2_l0vcx")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="Resource" id="Resource_lrv2s"]
+script = ExtResource("3_fgroh")
+is_persistent = true
+metadata/_custom_type_script = "uid://qpowcs3e7y6l"
+
+[resource]
+script = ExtResource("1_akovq")
+tile_name = "Water"
+world_tile_definition = SubResource("Resource_lrv2s")
+texture = SubResource("AtlasTexture_ndpik")
+color_lit = Color(0.284568, 0.303532, 1, 1)
+color_dark = Color(0, 0.247657, 0.247688, 1)
+is_walkable = true
+is_transparent = true

@@ -23,9 +23,11 @@ func _ready() -> void:
 	SignalBus.return_to_overworld.connect(return_to_overworld)
 
 # Function to generate the world map, called once at the beginning of the game
-func generate(player: Entity) -> void:
+func generate(player: Entity) -> bool:
 	# Generate the world map data
 	map_data = world_generator.generate_world(player, Vector3i(0, 0, 0))
+	map_data_service.save_overworld(map_data)
+	map_data_service.chunkify_map(map_data)
 	# Connect the entity_placed signal to add entities to the map
 	if not map_data.entity_placed.is_connected(entities.add_child):
 		map_data.entity_placed.connect(entities.add_child)
@@ -34,23 +36,7 @@ func generate(player: Entity) -> void:
 	_place_tiles()
 	# Emit the map_changed signal with the map dimensions
 	SignalBus.map_changed.emit(map_data.width, map_data.height)
-
-# Function to generate a local map, called whenever a local map is needed. Currently only generates dungeons. 
-func generate_locale(player: Entity, location: Vector3i, persistent_flag: bool = false) -> void:
-	# Generate dungeon map data
-	var locale_coordinates = Vector3i(location.x, location.y, 0)
-	map_data = dungeon_generator.generate_dungeon(player, locale_coordinates)
-	# Set the map's persistence flag
-	map_data.persistent = persistent_flag
-	# Save the map if it is persistent
-	if map_data.persistent == true:
-		map_data_service.save_map(locale_coordinates, map_data)
-	# Connect the entity_placed signal to add entities to the map
-	if not map_data.entity_placed.is_connected(entities.add_child):
-		map_data.entity_placed.connect(entities.add_child)
-	# Place entities and tiles on the map
-	_place_entities()
-	_place_tiles()
+	return true
 
 # Function to reload the overworld and switch the current map_data to the overworld.
 func reload_overworld(player: Entity) -> void:
@@ -76,6 +62,7 @@ func load_saved_map(player: Entity, coordinates: Vector3i):
 
 # Function called when a player explores a locale, which saves the current overworld map and goes through the process of generating a local
 func explore_locale(overworld_tile: Tile) -> void:
+	SignalBus.clear_orphan_nodes.emit()
 	# Save the current overworld map
 	map_data_service.save_overworld(map_data)
 	# Save the player data
@@ -88,13 +75,15 @@ func explore_locale(overworld_tile: Tile) -> void:
 	var persistent = overworld_tile.world_tile_component.is_persistent()
 	# Remove the player from the current map
 	entities.remove_child(player)
+	if map_data_service.current_chunk == overworld_tile.world_tile_component.chunk:
+		if !map_data_service.check_saved_map(locale_coordinates):
+			generate_chunk(player, overworld_tile.world_tile_component.chunk)
+	elif !map_data_service.load_chunk(overworld_tile.world_tile_component.chunk):
+		generate_chunk(player, overworld_tile.world_tile_component.chunk)
 	# Clear the current map
 	clear_map()
 	# Load or generate the locale map
-	if map_data_service.check_saved_map(locale_coordinates):
-		load_saved_map(player, locale_coordinates)
-	else:
-		generate_locale(player, locale_coordinates, persistent)
+	load_saved_map(player, locale_coordinates)
 	# Restore the player's state
 	player.restore(player_save_data)
 	player.grid_position = map_data.down_stairs_location
@@ -109,8 +98,53 @@ func explore_locale(overworld_tile: Tile) -> void:
 	# Emit signals of the parent node
 	get_parent().emit_signals()
 
+func generate_chunk(player: Entity, chunk: int) -> void:
+	if not map_data_service.map_chunks.has(chunk):
+		print("Chunk %s not found" % chunk)
+		return
+
+	print("Generating chunk %s" % chunk)
+	# Generate the chunk map data
+	var chunk_tiles = map_data_service.map_chunks[chunk]
+
+	for tile in chunk_tiles:
+		if tile.world_tile_component.chunk == chunk:
+			var coordinates = tile.get_grid_position()
+			var locale_coordinates = Vector3i(coordinates.x, coordinates.y, 0)
+			var locale_map = dungeon_generator.generate_dungeon(player, locale_coordinates, chunk)
+			locale_map.persistent = tile.world_tile_component.is_persistent()
+			if locale_map.persistent == true:
+				map_data_service.save_map(locale_coordinates, locale_map)
+			for entity in locale_map.entities:
+				if entity != player:
+					entity.queue_free()
+			for locale_tile in locale_map.tiles:
+				locale_tile.queue_free()
+	
+	print("Chunk %s generated" % chunk)
+	map_data_service.save_chunk(chunk)
+
+
+# Function to generate a local map, called whenever a local map is needed. Currently only generates dungeons. 
+func generate_locale(player: Entity, location: Vector3i, chunk: int, persistent_flag: bool = false) -> void:
+	# Generate dungeon map data
+	var locale_coordinates = Vector3i(location.x, location.y, 0)
+	map_data = dungeon_generator.generate_dungeon(player, locale_coordinates, chunk)
+	# Set the map's persistence flag
+	map_data.persistent = persistent_flag
+	# Save the map if it is persistent
+	if map_data.persistent == true:
+		map_data_service.save_map(locale_coordinates, map_data)
+	# Connect the entity_placed signal to add entities to the map
+	if not map_data.entity_placed.is_connected(entities.add_child):
+		map_data.entity_placed.connect(entities.add_child)
+	# Place entities and tiles on the map
+	_place_entities()
+	_place_tiles()
+
 # Function to return to the overworld when a player leaves a locale map, saving the current map if needed and reloading the overworld
 func return_to_overworld() -> void:
+	SignalBus.clear_orphan_nodes.emit()
 	# Save the current map if it is persistent
 	if map_data.persistent == true:
 		map_data_service.save_map(map_data.coordinates, map_data)
@@ -157,7 +191,7 @@ func clear_map() -> void:
 func load_game(player: Entity) -> bool:
 	# Load all maps from file
 	map_data_service._load_overworld_from_file()
-	map_data_service._load_from_file()
+	map_data_service.load_chunk(0)
 	# Load the player data
 	get_parent().load_player()
 	# Load the overworld map
@@ -165,7 +199,7 @@ func load_game(player: Entity) -> bool:
 	player.map_data = map_data
 	# If no map data is found, create a new map
 	if map_data == null:
-		map_data = MapData.new(Vector3i(0, 0, 0), 0, 0, player)
+		map_data = MapData.new(Vector3i(0, 0, 0), 0, 0, player, -1)
 		map_data.entity_placed.connect(entities.add_child)
 	# Place tiles and entities on the map
 	_place_tiles()

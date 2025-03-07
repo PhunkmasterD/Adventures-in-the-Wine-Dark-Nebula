@@ -10,6 +10,7 @@ func _ready() -> void:
 	SignalBus.map_changed.connect(_on_map_changed)
 	# Connect the zoom_changed signal to update camera zoom
 	SignalBus.zoom_changed.connect(_on_zoom_changed)
+	SignalBus.clear_orphan_nodes.connect(_on_clear_orphan_nodes)
 
 # Function to update camera limits when the map changes
 func _on_map_changed(width: int, height: int) -> void:
@@ -33,3 +34,7 @@ func _on_zoom_changed(reset: bool, factor: float) -> void:
 	target_zoom = clamp(target_zoom, MIN_ZOOM, MAX_ZOOM)
 	# Set the camera zoom to the target zoom
 	self.zoom = Vector2(target_zoom, target_zoom)
+
+func _on_clear_orphan_nodes():
+	if self.get_parent() == null:
+		queue_free()

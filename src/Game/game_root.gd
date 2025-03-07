@@ -16,6 +16,7 @@ func _ready() -> void:
 # Handles the escape key press event.
 func _on_escape_requested() -> void:
 	main_menu_requested.emit()
+	SignalBus.clear_orphan_nodes.emit()
 
 # Starts a new game.
 func new_game() -> void:
