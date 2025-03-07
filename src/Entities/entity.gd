@@ -63,6 +63,9 @@ func _init(map_data: MapData, start_position: Vector2i, key: String = "") -> voi
 func set_entity_type(key: String) -> void:
 	self.key = key
 	var entity_definition: EntityDefinition = load(entity_types[key])
+	for child in get_children():
+		if child != self and child.get_class() != "Camera2D":
+			child.queue_free()
 	_definition = entity_definition
 	type = _definition.type
 	blocks_movement = _definition.is_blocking_movment
@@ -192,3 +195,6 @@ func restore(save_data: Dictionary) -> void:
 func _on_clear_orphan_nodes():
 	if self.get_parent() == null:
 		queue_free()
+
+func _to_string() -> String:
+	return entity_name

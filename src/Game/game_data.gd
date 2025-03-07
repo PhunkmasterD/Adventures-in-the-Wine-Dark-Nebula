@@ -1,6 +1,13 @@
 class_name GameData
 extends Node
 
+func _init() -> void:
+	SignalBus.clear_orphan_nodes.connect(_on_clear_orphan_nodes)
+
+func _on_clear_orphan_nodes():
+	if self.get_parent() == null:
+		queue_free()
+
 # Function to save player data to a separate file
 func save_player(player: Entity) -> void:
 	print("Saving player data...")

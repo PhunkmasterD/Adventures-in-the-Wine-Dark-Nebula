@@ -4,6 +4,13 @@ signal entities_focussed(entity_list)
 
 @onready var map: Map = get_parent()
 
+func _init() -> void:
+	SignalBus.clear_orphan_nodes.connect(_on_clear_orphan_nodes)
+
+func _on_clear_orphan_nodes():
+	if self.get_parent() == null:
+		queue_free()
+
 # Process function to check for mouseover events
 func _process(_delta: float) -> void:
 	# Get the mouse position in local coordinates

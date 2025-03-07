@@ -84,4 +84,4 @@ func restore(save_data: Dictionary) -> void:
 
 func _on_clear_orphan_nodes():
 	if self.get_parent() == null:
-		self.queue_free()
+		queue_free()

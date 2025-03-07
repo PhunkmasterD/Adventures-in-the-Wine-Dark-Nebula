@@ -9,3 +9,6 @@ func exit() -> void:
 
 func get_action(player: Entity) -> Action:
 	return null
+
+func _to_string() -> String:
+	return "BaseInputHandler"

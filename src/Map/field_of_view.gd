@@ -12,6 +12,13 @@ const multipliers = [
 # Array to store tiles in field of view
 var _fov: Array[Tile] = []
 
+func _init() -> void:
+	SignalBus.clear_orphan_nodes.connect(_on_clear_orphan_nodes)
+
+func _on_clear_orphan_nodes():
+	if self.get_parent() == null:
+		queue_free()
+
 # Function to update the field of view
 func update_fov(map_data: MapData, origin: Vector2i, radius: int) -> void:
 	# Clear the current field of view

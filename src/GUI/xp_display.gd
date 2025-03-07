@@ -12,6 +12,7 @@ func initialize(player: Entity) -> void:
 	var player_max_xp: int = player.level_component.get_experience_to_next_level()
 	player_xp_changed(player_xp, player_max_xp)
 
+
 #function called when the player's xp changes to update the xp display
 func player_xp_changed(xp: int, max_xp: int) -> void:
 	xp_bar.max_value = max_xp

@@ -40,6 +40,11 @@ var _rng := RandomNumberGenerator.new()
 # Ready function to randomize the RNG
 func _ready() -> void:
 	_rng.randomize()
+	SignalBus.clear_orphan_nodes.connect(_on_clear_orphan_nodes)
+
+func _on_clear_orphan_nodes():
+	if self.get_parent() == null:
+		queue_free()
 
 # Main function to generate a dungeon
 func generate_dungeon(player: Entity, coordinates: Vector3i, chunk: int) -> MapData:
