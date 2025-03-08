@@ -18,6 +18,11 @@ func _init(definition: LevelComponentDefinition) -> void:
 	level_up_base = definition.level_up_base
 	level_up_factor = definition.level_up_factor
 	xp_given = definition.xp_given
+	super._init()
+
+func _on_clear_orphan_nodes():
+	if self.get_parent() == null:
+		queue_free()
 
 # Get the experience required to reach the next level
 func get_experience_to_next_level() -> int:

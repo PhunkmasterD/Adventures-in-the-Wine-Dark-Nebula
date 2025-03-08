@@ -15,6 +15,13 @@ var maps: Dictionary = {}
 var current_chunk: int = 0
 var map_chunks: Dictionary = {}
 
+func _init() -> void:
+	SignalBus.clear_orphan_nodes.connect(_on_clear_orphan_nodes)
+
+func _on_clear_orphan_nodes():
+	if self.get_parent() == null:
+		queue_free()
+
 # Function to convert coordinates to index
 func coordinate_to_index(coordinate: Vector3i) -> int:
 	return coordinate.x + coordinate.y * overworld_width + coordinate.z * overworld_width * overworld_height

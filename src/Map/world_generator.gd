@@ -12,6 +12,11 @@ var _rng := RandomNumberGenerator.new()
 # Randomize the RNG seed when the node is ready
 func _ready() -> void:
 	_rng.randomize()
+	SignalBus.clear_orphan_nodes.connect(_on_clear_orphan_nodes)
+
+func _on_clear_orphan_nodes():
+	if self.get_parent() == null:
+		queue_free()
 
 # Generate the world map with biomes and place the player entity
 func generate_world(player: Entity, coordinates: Vector3i) -> MapData:

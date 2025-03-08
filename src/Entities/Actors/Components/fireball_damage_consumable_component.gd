@@ -9,6 +9,7 @@ var radius: int
 func _init(definition: FireballDamageConsumableComponentDefinition):
 	damage = definition.damage
 	radius = definition.radius
+	super._init()
 
 # Activate the fireball effect
 func activate(action: ItemAction) -> bool:

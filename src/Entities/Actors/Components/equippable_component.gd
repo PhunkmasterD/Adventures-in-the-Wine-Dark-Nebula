@@ -1,5 +1,5 @@
 class_name EquippableComponent
-extends Node
+extends Component
 
 # Enum outlining the equipment types
 enum EquipmentType { WEAPON, ARMOR }
@@ -14,3 +14,4 @@ func _init(definition: EquippableComponentDefinition) -> void:
 	equipment_type = definition.equipment_type
 	power_bonus = definition.power_bonus
 	defense_bonus = definition.defense_bonus
+	super._init()

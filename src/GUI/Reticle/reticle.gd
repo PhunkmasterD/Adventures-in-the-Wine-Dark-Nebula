@@ -28,6 +28,11 @@ var map_data: MapData
 func _ready() -> void:
 	hide()
 	set_physics_process(false)
+	SignalBus.clear_orphan_nodes.connect(_on_clear_orphan_nodes)
+
+func _on_clear_orphan_nodes():
+	if self.get_parent() == null:
+		queue_free()
 
 # Function to select a position within a given radius around the player.
 func select_position(player: Entity, radius: int) -> Vector2i:

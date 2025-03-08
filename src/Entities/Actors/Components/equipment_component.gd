@@ -95,4 +95,3 @@ func restore(save_data: Dictionary) -> void:
 		if equipped_indices.any(func(index): return int(index) == i):
 			var item: Entity = inventory.items[i]
 			toggle_equip(item, false)
-
