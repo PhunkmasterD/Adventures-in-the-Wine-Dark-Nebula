@@ -7,6 +7,7 @@ var amount: int
 # Initialize the component with the definition data
 func _init(definition: HealingConsumableComponentDefinition) -> void:
 	amount = definition.healing_amount
+	super._init()
 
 # Activate the healing effect
 func activate(action: ItemAction) -> bool:

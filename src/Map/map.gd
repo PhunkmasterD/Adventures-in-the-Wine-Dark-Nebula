@@ -41,7 +41,6 @@ func generate(player: Entity) -> bool:
 
 # Function to reload the overworld and switch the current map_data to the overworld.
 func reload_overworld(player: Entity) -> void:
-	SignalBus.clear_orphan_nodes.emit()
 	# Load the overworld map
 	map_data = map_data_service.load_overworld(player)
 	# Connect the entity_placed signal to add entities to the map
@@ -50,6 +49,7 @@ func reload_overworld(player: Entity) -> void:
 	# Place entities and tiles on the map
 	_place_entities()
 	_place_tiles()
+	SignalBus.clear_orphan_nodes.emit()
 
 # Function to load a saved map and switch the current map_data to that saved map. 
 func load_saved_map(player: Entity, coordinates: Vector3i):
@@ -62,6 +62,7 @@ func load_saved_map(player: Entity, coordinates: Vector3i):
 	# Place entities and tiles on the map
 	_place_entities()
 	_place_tiles()
+	SignalBus.clear_orphan_nodes.emit()
 
 # Function called when a player explores a locale, which saves the current overworld map and goes through the process of generating a local
 func explore_locale(overworld_tile: Tile) -> void:

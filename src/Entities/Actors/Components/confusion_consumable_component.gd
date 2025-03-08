@@ -6,6 +6,7 @@ var number_of_turns: int
 
 # Initialize the component with the definition data
 func _init(definition: ConfusionConsumableComponentDefinition) -> void:
+	super._init()
 	number_of_turns = definition.number_of_turns
 
 # Activate the confusion effect on the target

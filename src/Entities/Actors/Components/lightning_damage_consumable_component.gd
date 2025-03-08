@@ -7,6 +7,7 @@ var maximum_range: int = 0
 
 # Initialize the component with the definition data
 func _init(definition: LightningDamageConsumableComponentDefinition) -> void:
+	super._init()
 	damage = definition.damage
 	maximum_range = definition.maximum_range
 

@@ -9,6 +9,11 @@ var capacity: int
 func _init(capacity: int) -> void:
 	items = []
 	self.capacity = capacity
+	super._init()
+
+func _on_clear_orphan_nodes():
+	if self.get_parent() == null:
+		queue_free()
 
 # Drop an item from the inventory
 func drop(item: Entity) -> void:

@@ -46,6 +46,7 @@ func _init(definition: FighterComponentDefinition) -> void:
 	death_texture = definition.death_texture
 	death_color = definition.death_color
 	action_cooldown = 0
+	super._init()
 
 # Heal the entity by a specified amount
 func heal(amount: int) -> int:

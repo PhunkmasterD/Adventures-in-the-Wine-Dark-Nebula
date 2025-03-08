@@ -195,6 +195,3 @@ func restore(save_data: Dictionary) -> void:
 func _on_clear_orphan_nodes():
 	if self.get_parent() == null:
 		queue_free()
-
-func _to_string() -> String:
-	return entity_name
