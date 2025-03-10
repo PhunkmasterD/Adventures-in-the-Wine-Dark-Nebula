@@ -33,8 +33,8 @@ func get_action(player: Entity) -> Action:
 			action.timer = 0.05
 	
 	if Input.is_action_just_pressed("wait"):
+		print(Dice.opposed_skill_check(player.fighter_component.power, false, player.fighter_component.power, false))
 		action = WaitAction.new(player)
-		print_orphan_nodes()
 	
 	if Input.is_action_just_pressed("view_history"):
 		get_parent().transition_to(InputHandler.InputHandlers.HISTORY_VIEWER)

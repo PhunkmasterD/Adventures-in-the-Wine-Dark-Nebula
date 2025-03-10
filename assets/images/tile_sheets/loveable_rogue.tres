@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dk124xswmqwv1"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e7s1e"]
+load_path = "res://.godot/imported/loveable_rogue.png-b0a4bf4fcdbd28d49f136a6452d3d095.ctex"
+
+[resource]
+atlas = SubResource("CompressedTexture2D_e7s1e")
+region = Rect2(96, 144, 16, 16)
