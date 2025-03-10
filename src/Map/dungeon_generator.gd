@@ -3,7 +3,7 @@ extends Node
 
 # Constants for item and monster generation
 const max_items_by_floor = [
-	[1, 1],
+	[1, 5],
 	[4, 2]
 ]
 
@@ -14,7 +14,7 @@ const max_monsters_by_floor = [
 ]
 
 const item_chances = {
-	0: {"health_potion": 35},
+	0: {"health_potion": 35, "sword": 50, "confusion_scroll": 10},
 	2: {"confusion_scroll": 10},
 	4: {"lightning_scroll": 25},
 	6: {"fireball_scroll": 25},

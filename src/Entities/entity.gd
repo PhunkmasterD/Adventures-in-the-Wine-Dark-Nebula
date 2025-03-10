@@ -91,6 +91,7 @@ func set_entity_type(key: String) -> void:
 			_handle_consumable(item_definition)
 		else:
 			equippable_component = EquippableComponent.new(item_definition)
+			add_child(equippable_component)
 	
 	# Initialize inventory component if applicable
 	if entity_definition.inventory_capacity > 0:

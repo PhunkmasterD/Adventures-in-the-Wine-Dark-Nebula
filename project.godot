@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Roguelike"
+config/name="Adventures in the Wine Dark Nebula"
 run/main_scene="res://src/Game/game_manager.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://assets/images/menu_background.png"
@@ -20,6 +20,11 @@ config/icon="res://assets/images/menu_background.png"
 SignalBus="*res://src/Utils/signal_bus.gd"
 MapConfig="*res://src/Map/map_config.gd"
 TileTypes="*res://src/Map/Map_Resource_Definitions/tile_types.gd"
+
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=900
 
 [input]
 

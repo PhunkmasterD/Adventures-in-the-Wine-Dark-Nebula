@@ -1,0 +1,14 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://e53re340u4o5"]
+
+[ext_resource type="FontFile" uid="uid://y58tabfwusi4" path="res://assets/fonts/raw_fonts/Okuda-A5PL.ttf" id="1_j4d38"]
+
+[resource]
+line_spacing = 0.0
+font = ExtResource("1_j4d38")
+font_size = 80
+font_color = Color(1, 0.787975, 0.995766, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 20
+shadow_color = Color(0.215686, 0.00392157, 0.207843, 0.780392)
+shadow_offset = Vector2(5, 1)

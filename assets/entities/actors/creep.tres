@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=4 format=3 uid="uid://cfaxltt2i1emk"]
+
+[ext_resource type="Script" uid="uid://cdwnxch26kbdd" path="res://src/Entities/entity_definition.gd" id="1_xiham"]
+[ext_resource type="Texture2D" uid="uid://bai4v7r0mfooq" path="res://assets/images/tile_sheets/loveable_rogue.png" id="2_q5yl0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmvcp"]
+atlas = ExtResource("2_q5yl0")
+region = Rect2(16, 224, 16, 16)
+
+[resource]
+script = ExtResource("1_xiham")
+name = "Creep"
+texture = SubResource("AtlasTexture_vmvcp")
+color = Color(1, 1, 1, 1)
+is_blocking_movment = true
+type = 3
+metadata/_custom_type_script = "uid://cdwnxch26kbdd"

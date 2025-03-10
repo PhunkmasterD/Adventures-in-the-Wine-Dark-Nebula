@@ -100,6 +100,7 @@ func explore_locale(overworld_tile: Tile) -> void:
 	# Emit signals of the parent node
 	get_parent().emit_signals()
 
+# Function to generate a full chunk, called whenever a chunk is needed. 
 func generate_chunk(player: Entity, chunk: int) -> void:
 	SignalBus.clear_orphan_nodes.emit()
 	if not map_data_service.map_chunks.has(chunk):
@@ -126,25 +127,6 @@ func generate_chunk(player: Entity, chunk: int) -> void:
 	
 	print("Chunk %s generated" % chunk)
 	map_data_service.save_chunk(chunk)
-
-
-# Function to generate a local map, called whenever a local map is needed. Currently only generates dungeons. 
-func generate_locale(player: Entity, location: Vector3i, chunk: int, persistent_flag: bool = false) -> void:
-	SignalBus.clear_orphan_nodes.emit()
-	# Generate dungeon map data
-	var locale_coordinates = Vector3i(location.x, location.y, 0)
-	map_data = dungeon_generator.generate_dungeon(player, locale_coordinates, chunk)
-	# Set the map's persistence flag
-	map_data.persistent = persistent_flag
-	# Save the map if it is persistent
-	if map_data.persistent == true:
-		map_data_service.save_map(locale_coordinates, map_data)
-	# Connect the entity_placed signal to add entities to the map
-	if not map_data.entity_placed.is_connected(entities.add_child):
-		map_data.entity_placed.connect(entities.add_child)
-	# Place entities and tiles on the map
-	_place_entities()
-	_place_tiles()
 
 # Function to return to the overworld when a player leaves a locale map, saving the current map if needed and reloading the overworld
 func return_to_overworld() -> void:

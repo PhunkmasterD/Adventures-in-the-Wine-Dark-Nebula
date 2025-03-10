@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://n87rw5cxnnn8"]
+[gd_scene load_steps=37 format=3 uid="uid://n87rw5cxnnn8"]
 
 [ext_resource type="Script" uid="uid://ff1s8v5c6swm" path="res://src/Game/game.gd" id="1_ne6pe"]
 [ext_resource type="Script" uid="uid://s3i3yx0bpbas" path="res://src/Game/game_root.gd" id="1_yidwt"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://dgr17diljjyhm" path="res://src/GUI/mouseover_checker.gd" id="9_eusf6"]
 [ext_resource type="Script" uid="uid://cxmyunoc3qod1" path="res://src/GUI/hp_display.gd" id="9_njvq4"]
 [ext_resource type="Script" uid="uid://b8jll8uxy6pd8" path="res://src/Game/EventHandlers/macro_input_handler.gd" id="9_seslh"]
+[ext_resource type="Texture2D" uid="uid://btrias76eg7o8" path="res://assets/images/menu_graphics/pixel_stars.png" id="11_fjlul"]
 [ext_resource type="PackedScene" uid="uid://d36pgskfsvwj2" path="res://src/GUI/Reticle/reticle.tscn" id="11_n4t22"]
 [ext_resource type="Script" uid="uid://d20qvrh1rlgeq" path="res://src/GUI/message_log.gd" id="11_xxafc"]
 [ext_resource type="Script" uid="uid://dple5xp0cxu5n" path="res://src/Map/world_generator.gd" id="13_4iv2r"]
@@ -86,7 +87,7 @@ stretch = true
 disable_3d = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
-size = Vector2i(956, 536)
+size = Vector2i(1330, 746)
 render_target_update_mode = 4
 
 [node name="Game" type="Node2D" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport"]
@@ -121,6 +122,16 @@ script = ExtResource("9_seslh")
 
 [node name="Map" type="Node2D" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("3_xyl86")
+
+[node name="Parallax2D" type="Parallax2D" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
+scroll_scale = Vector2(0.25, 0.25)
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map/Parallax2D"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("11_fjlul")
+expand_mode = 2
+stretch_mode = 1
 
 [node name="DungeonGenerator" type="Node" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("4_15hgc")
