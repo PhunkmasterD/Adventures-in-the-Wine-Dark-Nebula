@@ -115,6 +115,10 @@ func _physics_process(delta: float) -> void:
 			if action.timer > 0 and action_timer <= 0 or action.timer == 0:
 				if action.perform():
 					action_timer = action.timer
+					if player.tween.is_running():
+						set_physics_process(false)
+						await player.tween.finished
+						set_physics_process(true)
 					map.update_fov(player.grid_position)
 					_handle_enemy_turns()
 	else:
@@ -129,6 +133,10 @@ func _handle_enemy_turns() -> void:
 	for entity in get_map_data().entities:
 		if entity.ai_component != null and entity != player:
 			if entity.fighter_component.action_cooldown == 0:
+				#if entity.visible and entity.is_alive():
+					#set_physics_process(false)
+					#await get_tree().create_timer(0.025).timeout
+					#set_physics_process(true)
 				entity.ai_component.perform()
 			else:
 				entity.fighter_component.action_cooldown -= 1

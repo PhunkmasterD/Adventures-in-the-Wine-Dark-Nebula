@@ -34,4 +34,5 @@ func perform() -> bool:
 	
 	# Set the action cooldown
 	entity.fighter_component.action_cooldown = 2
+	entity.fighter_component.attack_animation(offset)
 	return true

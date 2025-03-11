@@ -30,7 +30,7 @@ func get_action(player: Entity) -> Action:
 			overworld_movement(player)
 			var offset: Vector2i = directions[direction]
 			action = OverworldMovementAction.new(player, offset.x, offset.y)
-			action.timer = 0.05
+			action.timer = 0.01
 	
 	if Input.is_action_just_pressed("wait"):
 		print(Dice.opposed_skill_check(player.fighter_component.power, false, player.fighter_component.power, false))

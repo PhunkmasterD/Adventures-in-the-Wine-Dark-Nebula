@@ -16,6 +16,7 @@ var map_data: MapData
 @onready var dungeon_generator: DungeonGenerator = $DungeonGenerator
 @onready var field_of_view: FieldOfView = $FieldOfView
 @onready var map_data_service: MapDataService = $MapDataService
+@onready var enemies_in_view: bool = false
 
 # Ready function to connect signals
 func _ready() -> void:
@@ -193,12 +194,16 @@ func load_game(player: Entity) -> bool:
 	return true
 
 # Function to update the field of view of the player, drawing the map accordingly.
-func update_fov(player_position: Vector2i) -> void:
+func update_fov(player_position: Vector2i) -> bool:
 	# Update the field of view based on the player's position
 	field_of_view.update_fov(map_data, player_position, fov_radius)
+	enemies_in_view = false
 	# Update the visibility of entities based on the field of view
 	for entity in map_data.entities:
 		entity.visible = map_data.get_tile(entity.grid_position).is_in_view
+		if entity.is_alive() and entity.visible and entity != map_data.player:
+			enemies_in_view = true
+	return enemies_in_view
 
 # Function to draw all tiles on the map
 func _place_tiles() -> void:

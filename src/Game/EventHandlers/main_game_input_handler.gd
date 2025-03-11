@@ -31,7 +31,7 @@ func get_action(player: Entity) -> Action:
 
 	if Input.is_action_just_pressed("wait"):
 		action = WaitAction.new(player)
-		print_orphan_nodes()
+		print(get_tree().get_processed_tweens())
 	
 	if Input.is_action_just_pressed("view_history"):
 		get_parent().transition_to(InputHandler.InputHandlers.HISTORY_VIEWER)

@@ -93,6 +93,12 @@ func die(trigger_side_effects := true) -> void:
 		entity.type = Entity.EntityType.CORPSE
 		get_map_data().unregister_blocking_entity(entity)
 
+func attack_animation(offset: Vector2i) -> void:
+	entity.tween = entity.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS).set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_IN)
+	var target_position = Grid.grid_to_world(offset) * 0.5
+	entity.tween.tween_property(entity, "position", target_position, 0.06).as_relative()
+	entity.tween.tween_property(entity, "grid_position", entity.grid_position, 0.01).set_delay(0.06)
+
 # Get the defense bonus from equipped items
 func get_defense_bonus() -> int:
 	if entity.equipment_component:

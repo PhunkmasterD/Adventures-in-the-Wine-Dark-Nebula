@@ -60,6 +60,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yidwt")
@@ -72,89 +74,86 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 5.0
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer/VBoxContainer"]
-layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="HBoxContainer/VBoxContainer/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer"]
 disable_3d = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
-size = Vector2i(1330, 746)
+size = Vector2i(1330, 900)
 render_target_update_mode = 4
 
-[node name="Game" type="Node2D" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport"]
+[node name="Game" type="Node2D" parent="HBoxContainer/SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
 script = ExtResource("1_ne6pe")
 
-[node name="InputHandler" type="Node" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game"]
+[node name="InputHandler" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("2_4winb")
 start_input_handler = 1
 
-[node name="MainGameInputHandler" type="Node" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler" node_paths=PackedStringArray("reticle")]
+[node name="MainGameInputHandler" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler" node_paths=PackedStringArray("reticle")]
 script = ExtResource("3_08i3b")
 reticle = NodePath("../../Map/Reticle")
 
-[node name="GameOverInputHandler" type="Node" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
+[node name="GameOverInputHandler" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
 script = ExtResource("4_gxmdu")
 
-[node name="HistoryViewerInputHandler" type="Node" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
+[node name="HistoryViewerInputHandler" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
 script = ExtResource("5_hrkyq")
-messages_panel_path = NodePath("../../../../../../MessagesPanel")
-message_log_path = NodePath("../../../../../../MessagesPanel/MessageLog")
+messages_panel_path = NodePath("../../../../../VBoxContainer/MessagesPanel")
+message_log_path = NodePath("../../../../../VBoxContainer/MessagesPanel/MessageLog")
 
-[node name="DummyInputHandler" type="Node" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
+[node name="DummyInputHandler" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
 script = ExtResource("6_ay8ab")
 
-[node name="OverworldInputHandler" type="Node" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler" node_paths=PackedStringArray("reticle")]
+[node name="OverworldInputHandler" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler" node_paths=PackedStringArray("reticle")]
 script = ExtResource("8_62yq5")
 reticle = NodePath("../../Map/Reticle")
 
-[node name="MacroInputHandler" type="Node" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
+[node name="MacroInputHandler" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
 script = ExtResource("9_seslh")
 
-[node name="Map" type="Node2D" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game"]
+[node name="Map" type="Node2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("3_xyl86")
 
-[node name="Parallax2D" type="Parallax2D" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
+[node name="Parallax2D" type="Parallax2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 scroll_scale = Vector2(0.25, 0.25)
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map/Parallax2D"]
-offset_right = 1920.0
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/Map/Parallax2D"]
+offset_left = 21.0
+offset_right = 1941.0
 offset_bottom = 1080.0
 texture = ExtResource("11_fjlul")
 expand_mode = 2
 stretch_mode = 1
 
-[node name="DungeonGenerator" type="Node" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
+[node name="DungeonGenerator" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("4_15hgc")
 
-[node name="FieldOfView" type="Node" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
+[node name="FieldOfView" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("5_bvmgb")
 
-[node name="Tiles" type="Node2D" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
+[node name="Tiles" type="Node2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 
-[node name="Entities" type="Node2D" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
+[node name="Entities" type="Node2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 
-[node name="MouseoverChecker" type="Node2D" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
+[node name="MouseoverChecker" type="Node2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("9_eusf6")
 
-[node name="Reticle" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map" instance=ExtResource("11_n4t22")]
+[node name="Reticle" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/Map" instance=ExtResource("11_n4t22")]
 
-[node name="WorldGenerator" type="Node" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
+[node name="WorldGenerator" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("13_4iv2r")
 
-[node name="MapDataService" type="Node" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
+[node name="MapDataService" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("15_51jmh")
 
-[node name="Camera2D" type="Camera2D" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game"]
+[node name="Camera2D" type="Camera2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Game"]
 zoom = Vector2(2, 2)
 limit_left = 0
 limit_top = 0
@@ -163,8 +162,12 @@ limit_bottom = 720
 position_smoothing_enabled = true
 script = ExtResource("16_fatmi")
 
-[node name="GameData" type="Node" parent="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game"]
+[node name="GameData" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("18_6phm1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="InfoBar" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -269,25 +272,27 @@ layout_mode = 2
 size_flags_vertical = 10
 label_settings = SubResource("LabelSettings_sr2kr")
 
-[node name="MessagesPanel" type="PanelContainer" parent="HBoxContainer"]
+[node name="MessagesPanel" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
 theme_override_styles/panel = ExtResource("17_ykbop")
 
-[node name="MessageLog" type="ScrollContainer" parent="HBoxContainer/MessagesPanel"]
+[node name="MessageLog" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/MessagesPanel"]
 layout_mode = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 script = ExtResource("11_xxafc")
 
-[node name="MessageList" type="VBoxContainer" parent="HBoxContainer/MessagesPanel/MessageLog"]
+[node name="MessageList" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/MessagesPanel/MessageLog"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[connection signal="player_created" from="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game" to="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer/HpDisplay" method="initialize"]
-[connection signal="player_created" from="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game" to="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer/XpDisplay" method="initialize"]
-[connection signal="player_created" from="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game" to="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer/CharacterInfoBox" method="setup"]
-[connection signal="player_moved" from="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler/OverworldInputHandler" to="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer/OverworldTileLabel" method="set_overworld_tile_text"]
-[connection signal="dungeon_floor_changed" from="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map" to="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer/DungeonFloorLabel" method="set_dungeon_floor"]
-[connection signal="entities_focussed" from="HBoxContainer/VBoxContainer/SubViewportContainer/SubViewport/Game/Map/MouseoverChecker" to="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer/MouseoverLabel" method="set_text"]
+[connection signal="player_created" from="HBoxContainer/SubViewportContainer/SubViewport/Game" to="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer/HpDisplay" method="initialize"]
+[connection signal="player_created" from="HBoxContainer/SubViewportContainer/SubViewport/Game" to="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer/XpDisplay" method="initialize"]
+[connection signal="player_created" from="HBoxContainer/SubViewportContainer/SubViewport/Game" to="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer/CharacterInfoBox" method="setup"]
+[connection signal="player_moved" from="HBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler/OverworldInputHandler" to="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer/OverworldTileLabel" method="set_overworld_tile_text"]
+[connection signal="dungeon_floor_changed" from="HBoxContainer/SubViewportContainer/SubViewport/Game/Map" to="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer/DungeonFloorLabel" method="set_dungeon_floor"]
+[connection signal="entities_focussed" from="HBoxContainer/SubViewportContainer/SubViewport/Game/Map/MouseoverChecker" to="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer/MouseoverLabel" method="set_text"]

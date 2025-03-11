@@ -26,7 +26,13 @@ const entity_types = {
 var grid_position: Vector2i:
 	set(value):
 		grid_position = value
-		position = Grid.grid_to_world(grid_position)
+		var new_position = Grid.grid_to_world(grid_position)
+		if self.get_parent() != null:
+			tween = create_tween().set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN_OUT)
+			tween.set_process_mode(tween.TWEEN_PROCESS_PHYSICS)
+			tween.tween_property(self, "position", new_position, 0.05)
+		else:
+			position = new_position
 
 # Variable declarations
 var _definition: EntityDefinition
@@ -38,6 +44,8 @@ var type: EntityType:
 		z_index = type
 var map_data: MapData
 var key: String
+var tween: Tween
+
 
 # Component variables
 var fighter_component: FighterComponent
@@ -49,29 +57,32 @@ var level_component: LevelComponent
 var equipment_component: EquipmentComponent
 
 # Initialization function
-func _init(map_data: MapData, start_position: Vector2i, key: String = "") -> void:
+func _init(get_map_data: MapData, start_position: Vector2i, get_key: String = "") -> void:
 	# Set initial properties
 	centered = false
 	grid_position = start_position
-	self.map_data = map_data
+	map_data = get_map_data
 	# Set entity type if key is provided
-	if key != "":
-		set_entity_type(key)
+	if get_key != "":
+		set_entity_type(get_key)
 	SignalBus.clear_orphan_nodes.connect(_on_clear_orphan_nodes)
 
 # Function to set the entity type based on the key
-func set_entity_type(key: String) -> void:
-	self.key = key
+func set_entity_type(get_key: String) -> void:
+	key = get_key
 	var entity_definition: EntityDefinition = load(entity_types[key])
 	for child in get_children():
 		if child != self and child.get_class() != "Camera2D":
 			child.queue_free()
 	_definition = entity_definition
 	type = _definition.type
+	if key == "player":
+		z_index += 1
 	blocks_movement = _definition.is_blocking_movment
 	entity_name = _definition.name
 	texture = entity_definition.texture
 	modulate = entity_definition.color
+	
 	
 	# Initialize AI component if applicable
 	match entity_definition.ai_type:
@@ -111,10 +122,10 @@ func set_entity_type(key: String) -> void:
 
 # Function to move the entity by a given offset
 func move(move_offset: Vector2i) -> void:
-		map_data.unregister_blocking_entity(self)
-		grid_position += move_offset
-		map_data.register_blocking_entity(self)
-		visible = map_data.get_tile(grid_position).is_in_view
+	map_data.unregister_blocking_entity(self)
+	grid_position += move_offset
+	map_data.register_blocking_entity(self)
+	visible = map_data.get_tile(grid_position).is_in_view
 
 # Function to calculate distance to another position
 func distance(other_position: Vector2i) -> int:
