@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=6 format=3 uid="uid://pcfa1jbfuudq"]
+
+[ext_resource type="Script" uid="uid://2kky7ansbu1q" path="res://src/Entities/entity_definition.gd" id="1_kpewh"]
+[ext_resource type="Script" uid="uid://yo1f33a7p8tn" path="res://src/Entities/Components/2-Interactable/Definitions/readable_component_definition.gd" id="1_vacvh"]
+[ext_resource type="Texture2D" uid="uid://h7i8uiwlysq2" path="res://assets/images/kenney_1-bit-pack/monochrome_packed.png" id="3_ey73n"]
+
+[sub_resource type="Resource" id="Resource_twgc7"]
+script = ExtResource("1_vacvh")
+title = "WELCOME"
+text = "WELCOME TO THE GOBLIN CAVES"
+text_color = Color(1, 0.3241, 0.258944, 1)
+metadata/_custom_type_script = "uid://yo1f33a7p8tn"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyoje"]
+atlas = ExtResource("3_ey73n")
+region = Rect2(16, 112, 16, 16)
+
+[resource]
+script = ExtResource("1_kpewh")
+name = "Signpost"
+texture = SubResource("AtlasTexture_dyoje")
+color = Color(0.417276, 0.364573, 0, 1)
+is_blocking_movment = true
+type = 2
+ai_type = 0
+inventory_capacity = 0
+has_equipment = false
+interactable_definition = SubResource("Resource_twgc7")
+metadata/_custom_type_script = "uid://2kky7ansbu1q"

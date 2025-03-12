@@ -84,6 +84,8 @@ func generate_dungeon(player: Entity, coordinates: Vector3i, chunk: int) -> MapD
 			player.grid_position = new_room.get_center()
 			player.map_data = dungeon
 		else:
+			var welcome_sign := Entity.new(dungeon, new_room.get_center(), "signpost")
+			dungeon.entities.append(welcome_sign)
 			# Create a tunnel between the new room and the previous room
 			_tunnel_between(dungeon, rooms.back().get_center(), new_room.get_center())
 		

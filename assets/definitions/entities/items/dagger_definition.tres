@@ -1,14 +1,15 @@
 [gd_resource type="Resource" script_class="EntityDefinition" load_steps=6 format=3 uid="uid://cisr62q1guj2h"]
 
 [ext_resource type="Script" uid="uid://2kky7ansbu1q" path="res://src/Entities/entity_definition.gd" id="1_50k7b"]
-[ext_resource type="Script" uid="uid://wqmg31rylqjh" path="res://src/Entities/Actors/Components/ComponentDefinitions/equippable_component_definition.gd" id="1_je5rl"]
+[ext_resource type="Script" uid="uid://wqmg31rylqjh" path="res://src/Entities/Components/1-Item/Definitions/equippable_component_definition.gd" id="1_je5rl"]
 [ext_resource type="Texture2D" uid="uid://h7i8uiwlysq2" path="res://assets/images/kenney_1-bit-pack/monochrome_packed.png" id="3_xpfw2"]
 
-[sub_resource type="Resource" id="Resource_y1wfj"]
+[sub_resource type="Resource" id="Resource_h08hr"]
 script = ExtResource("1_je5rl")
 equipment_type = 0
 power_bonus = 2
 defense_bonus = 0
+metadata/_custom_type_script = "uid://wqmg31rylqjh"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h573v"]
 atlas = ExtResource("3_xpfw2")
@@ -22,6 +23,6 @@ color = Color(0.498039, 0.498039, 0.498039, 1)
 is_blocking_movment = false
 type = 1
 ai_type = 0
-item_definition = SubResource("Resource_y1wfj")
+item_definition = SubResource("Resource_h08hr")
 inventory_capacity = 0
 has_equipment = false

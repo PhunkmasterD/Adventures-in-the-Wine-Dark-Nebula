@@ -5,22 +5,7 @@ extends Sprite2D
 enum AIType {NONE, HOSTILE}
 
 # Enumeration for Entity types
-enum EntityType {CORPSE, ITEM, ACTOR}
-
-# Dictionary mapping entity keys to their resource paths
-const entity_types = {
-	"player": "res://assets/definitions/entities/actors/entity_definition_player.tres",
-	"orc": "res://assets/definitions/entities/actors/entity_definition_orc.tres",
-	"troll": "res://assets/definitions/entities/actors/entity_definition_troll.tres",
-	"health_potion": "res://assets/definitions/entities/items/health_potion_definition.tres",
-	"lightning_scroll": "res://assets/definitions/entities/items/lightning_scroll_definition.tres",
-	"confusion_scroll": "res://assets/definitions/entities/items/confusion_scroll_definition.tres",
-	"fireball_scroll": "res://assets/definitions/entities/items/fireball_scroll_definition.tres",
-	"dagger": "res://assets/definitions/entities/items/dagger_definition.tres",
-	"sword": "res://assets/definitions/entities/items/sword_definition.tres",
-	"chainmail": "res://assets/definitions/entities/items/chainmail_definition.tres",
-	"leather_armor": "res://assets/definitions/entities/items/leather_armor_definition.tres",
-}
+enum EntityType {CORPSE, ITEM, INTERACTABLE, ACTOR}
 
 # Property for grid position with setter to update world position
 var grid_position: Vector2i:
@@ -55,6 +40,7 @@ var equippable_component: EquippableComponent
 var inventory_component: InventoryComponent
 var level_component: LevelComponent
 var equipment_component: EquipmentComponent
+var interactable_component: InteractableComponent
 
 # Initialization function
 func _init(get_map_data: MapData, start_position: Vector2i, get_key: String = "") -> void:
@@ -70,7 +56,7 @@ func _init(get_map_data: MapData, start_position: Vector2i, get_key: String = ""
 # Function to set the entity type based on the key
 func set_entity_type(get_key: String) -> void:
 	key = get_key
-	var entity_definition: EntityDefinition = load(entity_types[key])
+	var entity_definition: EntityDefinition = load(EntityDictionary.entity_definitions[key])
 	for child in get_children():
 		if child != self and child.get_class() != "Camera2D":
 			child.queue_free()
@@ -94,6 +80,13 @@ func set_entity_type(get_key: String) -> void:
 	if entity_definition.fighter_definition:
 		fighter_component = FighterComponent.new(entity_definition.fighter_definition)
 		add_child(fighter_component)
+
+	# Initialize interactable component if applicable
+	var interactable_definition: InteractableComponentDefinition = entity_definition.interactable_definition
+	if interactable_definition:
+		if interactable_definition is ReadableComponentDefinition:
+			interactable_component = ReadableComponent.new(interactable_definition)
+
 		
 	# Initialize item component if applicable
 	var item_definition: ItemComponentDefinition = entity_definition.item_definition

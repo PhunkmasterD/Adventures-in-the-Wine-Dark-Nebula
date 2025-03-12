@@ -4,6 +4,7 @@ extends Node2D
 signal player_created(player)
 
 const level_up_menu_scene: PackedScene = preload("res://src/GUI/LevelUpMenu/level_up_menu.tscn")
+const dialog_scene := preload("res://src/GUI/DialogBox/dialog_box.tscn")
 
 @onready var player: Entity
 @onready var input_handler: InputHandler = $InputHandler
@@ -14,6 +15,7 @@ const level_up_menu_scene: PackedScene = preload("res://src/GUI/LevelUpMenu/leve
 
 # Function to start a new game
 func new_game() -> void:
+	SignalBus.request_dialog.connect(_on_dialog_box_requested)
 	print("Initializing new game...")
 	create_directory_in_user_folder()
 	print("Creating player...")
@@ -151,6 +153,12 @@ func _on_player_level_up_requested() -> void:
 	set_physics_process(false)
 	await level_up_menu.level_up_completed
 	set_physics_process.bind(true).call_deferred()
+
+# Function to display a dialog box
+func _on_dialog_box_requested(title: String, text: String) -> void:
+	var dialog: DialogBox = dialog_scene.instantiate()
+	add_child(dialog)
+	dialog.show_dialog(title, text)
 
 func save_player() -> void:
 	game_data.save_player(player)

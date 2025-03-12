@@ -113,6 +113,15 @@ func get_actors() -> Array[Entity]:
 			actors.append(entity)
 	return actors
 
+# Function to get all actors that are in the map
+func get_interactables() -> Array[Entity]:
+	var interactables: Array[Entity] = []
+	# Collect all entities that are actors and alive
+	for entity in entities:
+		if entity.get_entity_type() == Entity.EntityType.INTERACTABLE:
+			interactables.append(entity)
+	return interactables
+
 # Function to get all items that are in the map
 func get_items() -> Array[Entity]:
 	var items: Array[Entity] = []
@@ -128,6 +137,14 @@ func get_actor_at_location(location: Vector2i) -> Entity:
 	for actor in get_actors():
 		if actor.grid_position == location:
 			return actor
+	return null
+
+# Function to get an actor at a location
+func get_interactable_at_location(location: Vector2i) -> Entity:
+	# Check each actor to see if it is at the specified location
+	for interactable in get_interactables():
+		if interactable.grid_position == location:
+			return interactable
 	return null
 
 # Function to restore map data as MapData from save data dictionary

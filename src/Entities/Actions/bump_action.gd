@@ -5,5 +5,7 @@ extends ActionWithDirection
 func perform() -> bool:
 	if get_target_actor():
 		return MeleeAction.new(entity, offset.x, offset.y).perform()
+	if get_target_interactable():
+		return InteractAction.new(entity, get_target_interactable()).perform()
 	else:
 		return MovementAction.new(entity, offset.x, offset.y).perform()

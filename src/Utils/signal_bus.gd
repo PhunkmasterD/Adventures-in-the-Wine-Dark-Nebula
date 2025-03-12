@@ -11,6 +11,9 @@ signal return_to_overworld
 signal main_game_input
 signal overworld_input
 
+#dialog signals
+signal request_dialog(title, text)
+
 #control signals
 signal message_sent(text, color)
 signal escape_requested

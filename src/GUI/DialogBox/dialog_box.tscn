@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhlf7kmmnavcm"]
+
+[ext_resource type="StyleBox" uid="uid://daeneodphwlvv" path="res://assets/resources/square_panel.tres" id="1_dqker"]
+[ext_resource type="Script" uid="uid://d2tjo05xshgny" path="res://src/GUI/DialogBox/dialog_box.gd" id="1_ug7u4"]
+[ext_resource type="LabelSettings" uid="uid://d31p6t083a0n6" path="res://assets/fonts/16px.tres" id="2_3ermc"]
+[ext_resource type="FontFile" uid="uid://bk0fq2awle8d5" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney Pixel.ttf" id="3_esfcd"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ug7u4"]
+color = Color(1, 1, 1, 1)
+
+[node name="DialogBox" type="CanvasLayer"]
+script = ExtResource("1_ug7u4")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_dqker")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "<Title>"
+label_settings = ExtResource("2_3ermc")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_ug7u4")
+
+[node name="Icon" type="TextureRect" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Text" type="RichTextLabel" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_esfcd")
+theme_override_fonts/mono_font = ExtResource("3_esfcd")
+theme_override_fonts/italics_font = ExtResource("3_esfcd")
+theme_override_fonts/bold_italics_font = ExtResource("3_esfcd")
+theme_override_fonts/bold_font = ExtResource("3_esfcd")
+bbcode_enabled = true
+text = "<This is where the text would appear>
+"
+fit_content = true
+horizontal_alignment = 1

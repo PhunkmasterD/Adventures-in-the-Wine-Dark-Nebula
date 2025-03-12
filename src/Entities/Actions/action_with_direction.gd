@@ -22,3 +22,7 @@ func get_blocking_entity_at_destination() -> Entity:
 # Function to get the target actor at the destination
 func get_target_actor() -> Entity:
 	return get_map_data().get_actor_at_location(get_destination())
+
+# Function to get the target interactable at the destination
+func get_target_interactable() -> Entity:
+	return get_map_data().get_interactable_at_location(get_destination())
