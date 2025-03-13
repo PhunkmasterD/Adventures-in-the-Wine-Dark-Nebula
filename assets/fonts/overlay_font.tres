@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dedyirgx5hpsb"]
+
+[ext_resource type="FontFile" uid="uid://c7bo025o1vgc0" path="res://assets/fonts/raw_fonts/Crisp.ttf" id="1_h7q1s"]
+
+[resource]
+font = ExtResource("1_h7q1s")
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.407843)

@@ -6,9 +6,9 @@
 
 [sub_resource type="Resource" id="Resource_twgc7"]
 script = ExtResource("1_vacvh")
-title = "WELCOME"
-text = "WELCOME TO THE GOBLIN CAVES"
-text_color = Color(1, 0.3241, 0.258944, 1)
+title = "Welcome!"
+text = "Welcome to your space ship!"
+text_color = Color(0.954261, 0.690707, 0.92526, 1)
 metadata/_custom_type_script = "uid://yo1f33a7p8tn"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dyoje"]

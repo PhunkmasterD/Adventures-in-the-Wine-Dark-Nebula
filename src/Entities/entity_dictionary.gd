@@ -8,6 +8,7 @@ const entity_definitions = {
 
 	# Interactables
 	"signpost": "res://assets/definitions/entities/interactables/signpost_definition.tres",
+	"teleporter": "res://assets/definitions/entities/interactables/teleporter_definition.tres",
 
     # Consumables
 	"health_potion": "res://assets/definitions/entities/items/health_potion_definition.tres",

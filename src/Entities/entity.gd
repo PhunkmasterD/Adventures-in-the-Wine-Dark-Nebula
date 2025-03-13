@@ -86,6 +86,10 @@ func set_entity_type(get_key: String) -> void:
 	if interactable_definition:
 		if interactable_definition is ReadableComponentDefinition:
 			interactable_component = ReadableComponent.new(interactable_definition)
+			add_child(interactable_component)
+		if interactable_definition is TeleporterComponentDefinition:
+			interactable_component = TeleporterComponent.new(interactable_definition)
+			add_child(interactable_component)
 
 		
 	# Initialize item component if applicable

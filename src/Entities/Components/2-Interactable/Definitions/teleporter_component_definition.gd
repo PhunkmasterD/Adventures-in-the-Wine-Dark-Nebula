@@ -1,0 +1,4 @@
+class_name TeleporterComponentDefinition
+extends InteractableComponentDefinition
+
+@export var teleport_coordinates: Vector3i

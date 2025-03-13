@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=6 format=3 uid="uid://sc2lhpc5sp37"]
+
+[ext_resource type="Script" uid="uid://cu7thbqjq12wm" path="res://src/Entities/Components/2-Interactable/Definitions/teleporter_component_definition.gd" id="1_n8cut"]
+[ext_resource type="Script" uid="uid://2kky7ansbu1q" path="res://src/Entities/entity_definition.gd" id="2_pmxd5"]
+[ext_resource type="Texture2D" uid="uid://h7i8uiwlysq2" path="res://assets/images/kenney_1-bit-pack/monochrome_packed.png" id="3_wmowq"]
+
+[sub_resource type="Resource" id="Resource_7gg8q"]
+script = ExtResource("1_n8cut")
+teleport_coordinates = Vector3i(1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4vdf"]
+atlas = ExtResource("3_wmowq")
+region = Rect2(48, 96, 16, 16)
+
+[resource]
+script = ExtResource("2_pmxd5")
+name = "Teleporter"
+texture = SubResource("AtlasTexture_w4vdf")
+color = Color(1, 1, 1, 1)
+is_blocking_movment = true
+type = 2
+ai_type = 0
+inventory_capacity = 0
+has_equipment = false
+interactable_definition = SubResource("Resource_7gg8q")
+metadata/_custom_type_script = "uid://2kky7ansbu1q"

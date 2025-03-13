@@ -2,18 +2,18 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://dmjoo67heer8p"
-path="res://.godot/imported/OkudaItalic-JBma.ttf-a1deabd22ed3eb81955daa98f953e874.fontdata"
+uid="uid://c7bo025o1vgc0"
+path="res://.godot/imported/Crisp.ttf-ce0815663ff2ed4a2ec358dfaab5a75d.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/raw_fonts/OkudaItalic-JBma.ttf"
-dest_files=["res://.godot/imported/OkudaItalic-JBma.ttf-a1deabd22ed3eb81955daa98f953e874.fontdata"]
+source_file="res://assets/fonts/raw_fonts/Crisp.ttf"
+dest_files=["res://.godot/imported/Crisp.ttf-ce0815663ff2ed4a2ec358dfaab5a75d.fontdata"]
 
 [params]
 
 Rendering=null
-antialiasing=1
+antialiasing=0
 generate_mipmaps=false
 disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
@@ -29,7 +29,12 @@ Fallbacks=null
 fallbacks=[]
 Compress=null
 compress=true
-preload=[]
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "New Configuration",
+"size": Vector2i(16, 0)
+}]
 language_support={}
 script_support={}
 opentype_features={}

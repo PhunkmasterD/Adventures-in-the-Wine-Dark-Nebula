@@ -1,7 +1,7 @@
 class_name Message
 extends Label
 
-const base_label_settings: LabelSettings = preload("res://assets/resources/message_label_settings.tres")
+const base_label_settings: LabelSettings = preload("res://assets/fonts/body_font.tres")
 
 var plain_text: String
 var count: int = 1:

@@ -17,6 +17,7 @@ var map_data: MapData
 @onready var field_of_view: FieldOfView = $FieldOfView
 @onready var map_data_service: MapDataService = $MapDataService
 @onready var enemies_in_view: bool = false
+@onready var ship: Ship = $Ship
 
 # Ready function to connect signals
 func _ready() -> void:
@@ -26,10 +27,14 @@ func _ready() -> void:
 # Function to generate the world map, called once at the beginning of the game
 func generate(player: Entity) -> bool:
 	# Generate the world map data
-	map_data = world_generator.generate_world(player, Vector3i(0, 0, 0))
+	#map_data = world_generator.generate_world(player, Vector3i(0, 0, 0))
+	#map_data_service.save_overworld(map_data)
+	#map_data_service.chunkify_map(map_data)
+	ship.generate_ship(player)
+	player.map_data = ship.ship_map
+	player.grid_position = ship.starting_position
+	map_data = ship.ship_map
 	entities.add_child(player)
-	map_data_service.save_overworld(map_data)
-	map_data_service.chunkify_map(map_data)
 	# Connect the entity_placed signal to add entities to the map
 	if not map_data.entity_placed.is_connected(entities.add_child):
 		map_data.entity_placed.connect(entities.add_child)

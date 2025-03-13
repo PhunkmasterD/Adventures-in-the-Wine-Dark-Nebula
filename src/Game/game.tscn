@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://b8jll8uxy6pd8" path="res://src/Game/EventHandlers/macro_input_handler.gd" id="9_seslh"]
 [ext_resource type="Texture2D" uid="uid://btrias76eg7o8" path="res://assets/images/menu_graphics/pixel_stars.png" id="11_fjlul"]
 [ext_resource type="PackedScene" uid="uid://d36pgskfsvwj2" path="res://src/GUI/Reticle/reticle.tscn" id="11_n4t22"]
+[ext_resource type="Script" uid="uid://ystg30a6yh22" path="res://src/Map/Ship/ship.gd" id="11_rr2t1"]
 [ext_resource type="Script" uid="uid://d20qvrh1rlgeq" path="res://src/GUI/message_log.gd" id="11_xxafc"]
 [ext_resource type="Script" uid="uid://dple5xp0cxu5n" path="res://src/Map/world_generator.gd" id="13_4iv2r"]
 [ext_resource type="Script" uid="uid://d2nlvx7uy6blq" path="res://src/Map/map_data_service.gd" id="15_51jmh"]
@@ -26,8 +27,10 @@
 [ext_resource type="StyleBox" uid="uid://daeneodphwlvv" path="res://assets/resources/square_panel.tres" id="17_ykbop"]
 [ext_resource type="Script" uid="uid://cb0pv76povysr" path="res://src/GUI/character_info_box.gd" id="17_yvib5"]
 [ext_resource type="Script" uid="uid://dxvijdcxj3swd" path="res://src/Game/game_data.gd" id="18_6phm1"]
-[ext_resource type="LabelSettings" uid="uid://dwo5wxa1b5g0g" path="res://assets/resources/message_label_settings.tres" id="20_vjk43"]
 [ext_resource type="Script" uid="uid://chke8b5t7anif" path="res://src/GUI/overworld_tile_label.gd" id="21_yuqwt"]
+[ext_resource type="LabelSettings" uid="uid://dedyirgx5hpsb" path="res://assets/fonts/overlay_font.tres" id="23_bfokn"]
+[ext_resource type="LabelSettings" uid="uid://d31p6t083a0n6" path="res://assets/fonts/body_font.tres" id="26_rllao"]
+[ext_resource type="LabelSettings" uid="uid://p1l54n08ltba" path="res://assets/fonts/header_font.tres" id="27_t8tfh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyudx"]
 bg_color = Color(0.498039, 0, 0, 1)
@@ -35,22 +38,11 @@ bg_color = Color(0.498039, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jnwhi"]
 bg_color = Color(0, 0.498039, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_c11as"]
-font = ExtResource("9_8xlja")
-outline_size = 4
-outline_color = Color(0, 0, 0, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6v6h"]
 bg_color = Color(0, 0, 0.498039, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l7pum"]
 bg_color = Color(0, 0, 1, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_5eejl"]
-font = ExtResource("9_8xlja")
-
-[sub_resource type="LabelSettings" id="LabelSettings_wggql"]
-font = ExtResource("9_8xlja")
 
 [sub_resource type="LabelSettings" id="LabelSettings_sr2kr"]
 font = ExtResource("9_8xlja")
@@ -94,7 +86,6 @@ script = ExtResource("1_ne6pe")
 
 [node name="InputHandler" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("2_4winb")
-start_input_handler = 1
 
 [node name="MainGameInputHandler" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler" node_paths=PackedStringArray("reticle")]
 script = ExtResource("3_08i3b")
@@ -121,15 +112,17 @@ script = ExtResource("9_seslh")
 [node name="Map" type="Node2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("3_xyl86")
 
+[node name="Ship" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
+script = ExtResource("11_rr2t1")
+
 [node name="Parallax2D" type="Parallax2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 scroll_scale = Vector2(0.25, 0.25)
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/Map/Parallax2D"]
-offset_left = 21.0
-offset_right = 1941.0
+offset_left = 22.0
+offset_right = 1942.0
 offset_bottom = 1080.0
 texture = ExtResource("11_fjlul")
-expand_mode = 2
 stretch_mode = 1
 
 [node name="DungeonGenerator" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
@@ -200,7 +193,7 @@ show_percentage = false
 unique_name_in_owner = true
 layout_mode = 2
 text = "HP:30/30"
-label_settings = SubResource("LabelSettings_c11as")
+label_settings = ExtResource("23_bfokn")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -222,7 +215,7 @@ show_percentage = false
 unique_name_in_owner = true
 layout_mode = 2
 text = "XP:30/30"
-label_settings = SubResource("LabelSettings_c11as")
+label_settings = ExtResource("23_bfokn")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -235,7 +228,7 @@ script = ExtResource("17_yvib5")
 layout_mode = 2
 size_flags_horizontal = 3
 text = "LVL: 1"
-label_settings = SubResource("LabelSettings_5eejl")
+label_settings = ExtResource("26_rllao")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -243,7 +236,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "LVL: 1"
-label_settings = SubResource("LabelSettings_5eejl")
+label_settings = ExtResource("26_rllao")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -251,20 +244,20 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "LVL: 1"
-label_settings = SubResource("LabelSettings_5eejl")
+label_settings = ExtResource("26_rllao")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="OverworldTileLabel" type="Label" parent="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer"]
 layout_mode = 2
 text = "Meadows"
-label_settings = ExtResource("20_vjk43")
+label_settings = ExtResource("27_t8tfh")
 script = ExtResource("21_yuqwt")
 
 [node name="DungeonFloorLabel" type="Label" parent="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer"]
 layout_mode = 2
 text = "Dungeon Level: 1"
-label_settings = SubResource("LabelSettings_wggql")
+label_settings = ExtResource("27_t8tfh")
 script = ExtResource("16_j80u7")
 
 [node name="MouseoverLabel" type="Label" parent="HBoxContainer/VBoxContainer/InfoBar/StatsPanel/VBoxContainer"]

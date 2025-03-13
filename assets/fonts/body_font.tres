@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://d31p6t083a0n6"]
+
+[ext_resource type="FontFile" uid="uid://c7bo025o1vgc0" path="res://assets/fonts/raw_fonts/Crisp.ttf" id="1_qr8r3"]
+
+[resource]
+line_spacing = 0.0
+font = ExtResource("1_qr8r3")

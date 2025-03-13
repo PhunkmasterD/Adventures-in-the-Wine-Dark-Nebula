@@ -155,10 +155,13 @@ func _on_player_level_up_requested() -> void:
 	set_physics_process.bind(true).call_deferred()
 
 # Function to display a dialog box
-func _on_dialog_box_requested(title: String, text: String) -> void:
+func _on_dialog_box_requested(title: String, text: String, texture: Texture, texture_color: Color) -> void:
 	var dialog: DialogBox = dialog_scene.instantiate()
 	add_child(dialog)
-	dialog.show_dialog(title, text)
+	dialog.show_dialog(title, text, texture, texture_color)
+	set_physics_process(false)
+	await dialog.dialog_closed
+	set_physics_process.bind(true).call_deferred()
 
 func save_player() -> void:
 	game_data.save_player(player)
